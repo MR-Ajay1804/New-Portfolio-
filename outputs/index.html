@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajay Kumar Saini | 3D Portfolio</title>
+  <style>
+    :root {
+      --ink: #f4fbff;
+      --muted: #aab7c9;
+      --line: rgba(170, 220, 255, 0.18);
+      --paper: #070912;
+      --white: #101625;
+      --mint: #41ffd2;
+      --coral: #ff6d9e;
+      --gold: #ffd166;
+      --blue: #62a8ff;
+      --violet: #a78bfa;
+      --shadow: 0 26px 90px rgba(0, 0, 0, 0.45);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(120deg, rgba(65, 255, 210, 0.12), transparent 24rem),
+        linear-gradient(240deg, rgba(255, 109, 158, 0.11), transparent 28rem),
+        radial-gradient(ellipse at 52% 18%, rgba(98, 168, 255, 0.18), transparent 34rem),
+        linear-gradient(135deg, #050713 0%, #0b1020 42%, #0a0912 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .scene {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+      perspective: 900px;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 58px 58px;
+      animation: galaxyShift 18s ease-in-out infinite alternate;
+    }
+
+    #stars {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .mesh {
+      position: absolute;
+      inset: -12vh -10vw auto auto;
+      width: min(54vw, 680px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(65, 255, 210, 0.22);
+      transform-style: preserve-3d;
+      animation: orbit 18s linear infinite;
+      opacity: 0.9;
+      box-shadow: inset 0 0 80px rgba(98, 168, 255, 0.18), 0 0 90px rgba(255, 109, 158, 0.16);
+    }
+
+    .mesh::before,
+    .mesh::after {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border: 1px solid rgba(98, 168, 255, 0.26);
+      transform: rotateX(70deg) rotateZ(18deg);
+    }
+
+    .mesh::after {
+      inset: 28%;
+      border-color: rgba(255, 209, 102, 0.25);
+      transform: rotateY(72deg) rotateZ(-24deg);
+    }
+
+    @keyframes orbit {
+      from {
+        transform: rotateX(58deg) rotateY(0deg) rotateZ(28deg);
+      }
+      to {
+        transform: rotateX(58deg) rotateY(360deg) rotateZ(28deg);
+      }
+    }
+
+    @keyframes galaxyShift {
+      from {
+        background-position: 0 0, 0 0;
+        filter: saturate(1);
+      }
+      to {
+        background-position: 80px 42px, -48px 76px;
+        filter: saturate(1.18);
+      }
+    }
+
+    .topbar {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(1120px, calc(100% - 32px));
+      padding: 10px;
+      border: 1px solid rgba(170, 220, 255, 0.2);
+      border-radius: var(--radius);
+      background: rgba(8, 12, 26, 0.78);
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(18px);
+      transform: translateX(-50%);
+    }
+
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding-left: 8px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 7px;
+      color: white;
+      background: linear-gradient(135deg, var(--mint), var(--blue), var(--coral));
+      box-shadow: 0 12px 34px rgba(65, 255, 210, 0.26);
+    }
+
+    .nav {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+    }
+
+    .nav a,
+    .icon-button {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 180ms ease, transform 180ms ease, color 180ms ease;
+    }
+
+    .nav a:hover,
+    .icon-button:hover {
+      background: rgba(65, 255, 210, 0.12);
+      color: var(--mint);
+      transform: translateY(-2px) scale(1.06);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(320px, 0.96fr);
+      gap: clamp(28px, 5vw, 72px);
+      align-items: center;
+      min-height: 92vh;
+      padding: 120px 0 60px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 9px 12px;
+      border: 1px solid rgba(65, 255, 210, 0.28);
+      border-radius: 999px;
+      background: rgba(8, 12, 26, 0.72);
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(2.7rem, 7vw, 6.3rem);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .name {
+      display: block;
+      color: var(--mint);
+      text-shadow: 0 0 24px rgba(65, 255, 210, 0.34);
+    }
+
+    .lead {
+      max-width: 660px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 1.8vw, 1.2rem);
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .primary,
+    .secondary {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 17px;
+      border-radius: 7px;
+      font-weight: 800;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .primary {
+      color: white;
+      background: linear-gradient(135deg, #1e293b, #0f766e);
+      box-shadow: 0 16px 42px rgba(65, 255, 210, 0.18);
+    }
+
+    .secondary {
+      border: 1px solid var(--line);
+      background: rgba(12, 18, 36, 0.68);
+      color: var(--ink);
+    }
+
+    .primary:hover,
+    .secondary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 18px 48px rgba(98, 168, 255, 0.18);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 34px;
+      max-width: 590px;
+    }
+
+    .stat {
+      padding: 15px;
+      border: 1px solid rgba(170, 220, 255, 0.18);
+      border-radius: var(--radius);
+      background: rgba(12, 18, 36, 0.58);
+      backdrop-filter: blur(12px);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 590px;
+      perspective: 1200px;
+    }
+
+    .photo-stage {
+      position: relative;
+      width: min(72vw, 350px);
+      aspect-ratio: 0.82;
+      transform-style: preserve-3d;
+      animation: floatCard 5.6s ease-in-out infinite;
+    }
+
+    .photo-card {
+      position: absolute;
+      inset: 0;
+      padding: 18px;
+      border: 1px solid rgba(170, 220, 255, 0.2);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(14, 116, 144, 0.24));
+      box-shadow: var(--shadow);
+      transform: rotateY(-12deg) rotateX(8deg);
+      transform-style: preserve-3d;
+    }
+
+    .photo-slot {
+      position: relative;
+      display: grid;
+      place-items: center;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 7px;
+      border: 1px solid rgba(65, 255, 210, 0.25);
+      background:
+        linear-gradient(135deg, rgba(65, 255, 210, 0.16), rgba(98, 168, 255, 0.12)),
+        repeating-linear-gradient(45deg, transparent 0 18px, rgba(255, 255, 255, 0.04) 18px 19px);
+    }
+
+    .photo-slot img {
+      width: 70%;
+      height: 70%;
+      object-fit: cover;
+      animation: portraitPulse 7s ease-in-out infinite;
+    }
+
+    .photo-note {
+      display: grid;
+      gap: 14px;
+      max-width: 250px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .photo-note strong {
+      font-size: 1.35rem;
+    }
+
+    .photo-note span {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .floating-chip {
+      position: absolute;
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      min-width: 128px;
+      padding: 12px 14px;
+      border: 1px solid rgba(170, 220, 255, 0.22);
+      border-radius: var(--radius);
+      background: rgba(8, 12, 26, 0.78);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(14px);
+      font-weight: 800;
+      transform-style: preserve-3d;
+    }
+
+    .chip-one {
+      top: 88px;
+      left: 0;
+      color: var(--mint);
+      animation: drift 5.2s ease-in-out infinite;
+    }
+
+    .chip-two {
+      right: 4px;
+      bottom: 126px;
+      color: var(--coral);
+      animation: drift 5.8s ease-in-out infinite reverse;
+    }
+
+    .chip-three {
+      left: 40px;
+      bottom: 40px;
+      color: var(--blue);
+      animation: drift 6.4s ease-in-out infinite;
+    }
+
+    @keyframes floatCard {
+      0%, 100% {
+        transform: translateY(0) rotateZ(-1deg);
+      }
+      50% {
+        transform: translateY(-18px) rotateZ(1deg);
+      }
+    }
+
+    @keyframes drift {
+      0%, 100% {
+        transform: translate3d(0, 0, 70px) rotateZ(-1deg);
+      }
+      50% {
+        transform: translate3d(0, -12px, 110px) rotateZ(2deg);
+      }
+    }
+
+    @keyframes portraitPulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: saturate(1.05) contrast(1.04);
+      }
+      50% {
+        transform: scale(1.045);
+        filter: saturate(1.18) contrast(1.08);
+      }
+    }
+
+    section {
+      padding: 78px 0;
+    }
+
+    .section-head {
+      display: flex;
+      gap: 18px;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .panel,
+    .project,
+    .timeline-item,
+    .contact-box {
+      border: 1px solid rgba(170, 220, 255, 0.18);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(10, 15, 32, 0.78), rgba(18, 24, 44, 0.62));
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(16px);
+    }
+
+    .panel {
+      min-height: 160px;
+      padding: 22px;
+      transform-style: preserve-3d;
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    }
+
+    .panel:hover,
+    .project:hover {
+      border-color: rgba(65, 255, 210, 0.42);
+      transform: translateY(-8px) rotateX(3deg) scale(1.025);
+      box-shadow: 0 28px 76px rgba(65, 255, 210, 0.14);
+    }
+
+    .panel h3,
+    .project h3,
+    .timeline-item h3 {
+      margin: 14px 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .panel p,
+    .project p,
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 7px;
+      color: white;
+      background: linear-gradient(135deg, #111827, #334155);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
+    }
+
+    .icon.mint {
+      background: var(--mint);
+    }
+
+    .icon.coral {
+      background: var(--coral);
+    }
+
+    .icon.gold {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    .icon.blue {
+      background: var(--blue);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(8, 12, 26, 0.5);
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      position: relative;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 22px;
+      padding: 22px;
+    }
+
+    .time {
+      color: var(--mint);
+      font-weight: 900;
+    }
+
+    .project {
+      overflow: hidden;
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+
+    .project-art {
+      display: grid;
+      place-items: center;
+      min-height: 190px;
+      background:
+        linear-gradient(135deg, rgba(5, 7, 19, 0.92), rgba(14, 116, 144, 0.76)),
+        linear-gradient(45deg, var(--mint), var(--coral), var(--gold));
+      color: white;
+      transform-style: preserve-3d;
+    }
+
+    .cube {
+      position: relative;
+      width: 78px;
+      height: 78px;
+      transform-style: preserve-3d;
+      animation: spin 8s linear infinite;
+    }
+
+    .cube span {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      background: rgba(98, 168, 255, 0.12);
+      box-shadow: inset 0 0 20px rgba(65, 255, 210, 0.14);
+    }
+
+    .cube span:nth-child(1) { transform: translateZ(39px); }
+    .cube span:nth-child(2) { transform: rotateY(90deg) translateZ(39px); }
+    .cube span:nth-child(3) { transform: rotateY(180deg) translateZ(39px); }
+    .cube span:nth-child(4) { transform: rotateY(270deg) translateZ(39px); }
+    .cube span:nth-child(5) { transform: rotateX(90deg) translateZ(39px); }
+    .cube span:nth-child(6) { transform: rotateX(-90deg) translateZ(39px); }
+
+    @keyframes spin {
+      from { transform: rotateX(-18deg) rotateY(0deg); }
+      to { transform: rotateX(-18deg) rotateY(360deg); }
+    }
+
+    .project-body {
+      padding: 22px;
+    }
+
+    .cert-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .cert {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(8, 12, 26, 0.52);
+      font-weight: 800;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .mini-action {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      min-height: 40px;
+      padding: 0 12px;
+      border: 1px solid rgba(65, 255, 210, 0.26);
+      border-radius: 7px;
+      background: rgba(8, 12, 26, 0.62);
+      color: var(--ink);
+      font-size: 0.86rem;
+      font-weight: 800;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .mini-action:hover {
+      border-color: rgba(65, 255, 210, 0.58);
+      background: rgba(65, 255, 210, 0.12);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .contact-box {
+      padding: 24px;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .contact-links a {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      min-height: 48px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(8, 12, 26, 0.56);
+      color: var(--muted);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    form {
+      display: grid;
+      gap: 12px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(8, 12, 26, 0.72);
+      padding: 14px;
+      color: var(--ink);
+      outline: none;
+    }
+
+    textarea {
+      min-height: 132px;
+      resize: vertical;
+    }
+
+    footer {
+      padding: 30px 0 42px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px) scale(0.96);
+      filter: blur(14px);
+      transition: opacity 760ms ease, transform 760ms ease, filter 760ms ease;
+    }
+
+    [data-reveal].visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .contact,
+      .grid.two,
+      .grid.three {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 112px;
+      }
+
+      .visual {
+        min-height: 520px;
+      }
+
+      .section-head {
+        display: grid;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        top: 10px;
+        width: calc(100% - 20px);
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+
+      .nav a {
+        width: 36px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 470px;
+      }
+
+      .photo-stage {
+        width: min(78vw, 300px);
+      }
+
+      .floating-chip {
+        min-width: auto;
+        max-width: 150px;
+        font-size: 0.86rem;
+      }
+
+      .chip-one {
+        left: 0;
+        top: 70px;
+      }
+
+      .chip-two {
+        right: 0;
+        bottom: 88px;
+      }
+
+      .chip-three {
+        left: 18px;
+        bottom: 22px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 56px 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene" aria-hidden="true">
+    <canvas id="stars"></canvas>
+    <div class="mesh"></div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Go to home">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24"><path d="m8 9 3-3 3 3"/><path d="m8 15 3 3 3-3"/><path d="M3 12h18"/></svg>
+      </span>
+      <span>Ajay Kumar Saini</span>
+    </a>
+    <nav class="nav" aria-label="Portfolio sections">
+      <a href="#skills" title="Skills"><svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg></a>
+      <a href="#education" title="Education"><svg viewBox="0 0 24 24"><path d="m22 10-10-5-10 5 10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></a>
+      <a href="#experience" title="Experience"><svg viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><path d="M4 7h16a2 2 0 0 1 2 2v11H2V9a2 2 0 0 1 2-2Z"/></svg></a>
+      <a href="#projects" title="Projects"><svg viewBox="0 0 24 24"><path d="M16 18 22 12 16 6"/><path d="M8 6 2 12 8 18"/></svg></a>
+      <a href="#certificates" title="Certificates"><svg viewBox="0 0 24 24"><path d="M12 15 8.5 20l-1-4.5L3 14l3.5-5L12 15Z"/><path d="m12 15 3.5 5 1-4.5L21 14l-3.5-5L12 15Z"/><circle cx="12" cy="8" r="5"/></svg></a>
+      <a href="#extras" title="Beyond Code"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M3 12h18"/><path d="m5 5 14 14"/><path d="m19 5-14 14"/></svg></a>
+      <a href="#contact" title="Contact"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.72c.13.96.35 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.26-1.26a2 2 0 0 1 2.11-.45c.91.35 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></a>
+    </nav>
+  </header>
+
+  <main id="home" class="wrap">
+    <section class="hero">
+      <div>
+        <div class="kicker" data-reveal>
+          <svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+          Aspiring Full Stack Developer
+        </div>
+        <h1 data-reveal>Ajay Kumar Saini <span class="name">builds modern web apps.</span></h1>
+        <p class="lead" data-reveal>
+          Computer Science Engineering student from Alwar, Rajasthan with strong skills in
+          C++, Data Structures, and Problem Solving. I build responsive web apps, computer
+          vision projects, and practical software with clean UI and efficient code.
+        </p>
+        <div class="hero-actions" data-reveal>
+          <a class="primary" href="#projects">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            View Projects
+          </a>
+          <a class="secondary" href="#contact">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
+            Contact Me
+          </a>
+        </div>
+        <div class="stats" data-reveal>
+          <div class="stat"><strong>4</strong><span>Featured projects</span></div>
+          <div class="stat"><strong>2</strong><span>Internships</span></div>
+          <div class="stat"><strong>2026</strong><span>B.Tech graduation</span></div>
+        </div>
+      </div>
+
+      <div class="visual" data-reveal>
+        <div class="photo-stage" aria-label="Ajay Kumar Saini profile photo">
+          <div class="photo-card">
+            <div class="photo-slot">
+              <img src="IMG_20260604_151620.jpg.jpeg" alt="Ajay Kumar Saini profile photo" />
+            </div>
+          </div>
+        </div>
+        <div class="floating-chip chip-one"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Clean Code</div>
+        <div class="floating-chip chip-two"><svg viewBox="0 0 24 24"><path d="M12 2v8"/><path d="m16 6-4 4-4-4"/><path d="M20 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4"/></svg>Deploy Ready</div>
+        <div class="floating-chip chip-three"><svg viewBox="0 0 24 24"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>Problem Solver</div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-head" data-reveal>
+        <h2>Skills</h2>
+        <p>Technologies, engineering fundamentals, and tools from Ajay's resume.</p>
+      </div>
+      <div class="grid three">
+        <article class="panel" data-reveal>
+          <span class="icon mint"><svg viewBox="0 0 24 24"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg></span>
+          <h3>Programming</h3>
+          <p>C++, Python, Java basics, programming fundamentals, debugging, data structures, and practical problem solving.</p>
+          <div class="tags"><span class="tag">C++</span><span class="tag">Python</span><span class="tag">Java</span></div>
+        </article>
+        <article class="panel" data-reveal>
+          <span class="icon coral"><svg viewBox="0 0 24 24"><path d="M3 4h18v14H3z"/><path d="M8 22h8"/><path d="M12 18v4"/></svg></span>
+          <h3>Web Development</h3>
+          <p>Responsive websites with HTML, CSS, JavaScript, React.js, modern UI components, and smooth section experiences.</p>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">React.js</span></div>
+        </article>
+        <article class="panel" data-reveal>
+          <span class="icon blue"><svg viewBox="0 0 24 24"><path d="M4 7a8 4 0 0 1 16 0v10a8 4 0 0 1-16 0Z"/><path d="M4 7a8 4 0 0 0 16 0"/><path d="M4 12a8 4 0 0 0 16 0"/></svg></span>
+          <h3>Backend & Data</h3>
+          <p>API integration, backend connectivity, Firebase, MySQL, database flow, and dynamic web features.</p>
+          <div class="tags"><span class="tag">APIs</span><span class="tag">Firebase</span><span class="tag">MySQL</span></div>
+        </article>
+        <article class="panel" data-reveal>
+          <span class="icon gold"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M3 12h18"/><path d="m5 5 14 14"/><path d="m19 5-14 14"/></svg></span>
+          <h3>Tools</h3>
+          <p>VS Code, IntelliJ IDEA, GitHub, Firebase, Netlify deployment, version control, documentation, and collaboration.</p>
+          <div class="tags"><span class="tag">VS Code</span><span class="tag">IntelliJ</span><span class="tag">GitHub</span></div>
+        </article>
+        <article class="panel" data-reveal>
+          <span class="icon mint"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span>
+          <h3>Computer Science</h3>
+          <p>OOP, DBMS, DSA, Computer Networks, Microprocessors, and Machine Learning basics.</p>
+          <div class="tags"><span class="tag">OOP</span><span class="tag">DBMS</span><span class="tag">DSA</span></div>
+        </article>
+        <article class="panel" data-reveal>
+          <span class="icon coral"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 1 1-6.2-8.56"/></svg></span>
+          <h3>Soft Skills</h3>
+          <p>Content creation, peer support, resume building help, photography, video editing, and short-form creative storytelling.</p>
+          <div class="tags"><span class="tag">20K+ Views</span><span class="tag">Editing</span><span class="tag">Mentoring</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="section-head" data-reveal>
+        <h2>Education</h2>
+        <p>Academic background from Ajay's existing portfolio.</p>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item" data-reveal>
+          <div class="time">2022 - 2026</div>
+          <div>
+            <span class="icon blue"><svg viewBox="0 0 24 24"><path d="m22 10-10-5-10 5 10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span>
+            <h3>B.Tech in Computer Science and Engineering</h3>
+            <p>Modern Institute of Technology and Research Centre (MITRC), Alwar, Rajasthan. Expected graduation: June 2026.</p>
+          </div>
+        </article>
+        <article class="timeline-item" data-reveal>
+          <div class="time">2022</div>
+          <div>
+            <span class="icon mint"><svg viewBox="0 0 24 24"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v16H6a2 2 0 0 1 0-4h14"/></svg></span>
+            <h3>12th - Science (PCM)</h3>
+            <p>Adinath Public School, Alwar, Rajasthan.</p>
+          </div>
+        </article>
+        <article class="timeline-item" data-reveal>
+          <div class="time">2020</div>
+          <div>
+            <span class="icon gold"><svg viewBox="0 0 24 24"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v16H6a2 2 0 0 1 0-4h14"/></svg></span>
+            <h3>10th</h3>
+            <p>Adinath Public School, Alwar, Rajasthan.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-head" data-reveal>
+        <h2>Experience</h2>
+        <p>Industrial and full-stack internship experience from Ajay's resume.</p>
+      </div>
+      <div class="grid two">
+        <article class="panel" data-reveal>
+          <span class="icon coral"><svg viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><path d="M4 7h16a2 2 0 0 1 2 2v11H2V9a2 2 0 0 1 2-2Z"/></svg></span>
+          <h3>Intern</h3>
+          <p>Supreme Cooling Systems, Khushkhera. Created and edited technical drawings using AutoCAD and supported digital documentation of industrial systems and processes.</p>
+          <div class="tags"><span class="tag">AutoCAD</span><span class="tag">Documentation</span><span class="tag">Apr-May 2025</span></div>
+          <div class="action-row">
+            <a class="mini-action" href="http://drive.google.com/file/d/1sh3PkHe7YjCYRpiRqIRrtNBbcPeGZ6IL/view" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              Internship Certificate
+            </a>
+          </div>
+        </article>
+        <article class="panel" data-reveal>
+          <span class="icon gold"><svg viewBox="0 0 24 24"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v7a5 5 0 0 1-10 0Z"/><path d="M5 9H3a3 3 0 0 1-3-3V4h7"/><path d="M19 9h2a3 3 0 0 0 3-3V4h-7"/></svg></span>
+          <h3>Full Stack Web Developer Intern</h3>
+          <p>Upflairs, Jaipur. Developed responsive web applications with HTML, CSS, JavaScript, and React; integrated APIs and backend connectivity; collaborated using Git and GitHub.</p>
+          <div class="tags"><span class="tag">Jul-Aug 2025</span><span class="tag">React.js</span><span class="tag">APIs</span></div>
+          <div class="action-row">
+            <a class="mini-action" href="https://drive.google.com/file/d/1Z088A4nodBJHBzimwMQ1yFcq97UKCV_s/view" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              Internship Certificate
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="certificates">
+      <div class="section-head" data-reveal>
+        <h2>Certificates</h2>
+        <p>Resume, Java certification, Python certification, and RS-CIT document links.</p>
+      </div>
+      <div class="cert-list">
+        <a class="cert" data-reveal href="https://ajay-protfolio.netlify.app/Ajay%20Resume%201.pdf"><span class="icon blue"><svg viewBox="0 0 24 24"><path d="M12 15 8.5 20l-1-4.5L3 14l3.5-5L12 15Z"/><path d="m12 15 3.5 5 1-4.5L21 14l-3.5-5L12 15Z"/><circle cx="12" cy="8" r="5"/></svg></span>View Resume</a>
+        <a class="cert" data-reveal href="https://ajay-protfolio.netlify.app/certificate-python.pdf"><span class="icon mint"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span>Python Certificate</a>
+        <a class="cert" data-reveal href="https://ajay-protfolio.netlify.app/certificate-java.pdf"><span class="icon coral"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></span>Java Certificate</a>
+        <a class="cert" data-reveal href="https://ajay-protfolio.netlify.app/Rscit.jpg"><span class="icon gold"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 1 1-6.2-8.56"/></svg></span>RS-CIT</a>
+        <a class="cert" data-reveal href="http://drive.google.com/file/d/1sh3PkHe7YjCYRpiRqIRrtNBbcPeGZ6IL/view"><span class="icon blue"><svg viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><path d="M4 7h16a2 2 0 0 1 2 2v11H2V9a2 2 0 0 1 2-2Z"/></svg></span>Supreme Cooling Systems Internship Certificate</a>
+        <a class="cert" data-reveal href="https://drive.google.com/file/d/1Z088A4nodBJHBzimwMQ1yFcq97UKCV_s/view"><span class="icon mint"><svg viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><path d="M4 7h16a2 2 0 0 1 2 2v11H2V9a2 2 0 0 1 2-2Z"/></svg></span>Upflairs Full Stack Internship Certificate</a>
+        <a class="cert" data-reveal href="https://jscer.org/wp-content/uploads/2026/04/5/Weed%20detection.pdf"><span class="icon coral"><svg viewBox="0 0 24 24"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v16H6a2 2 0 0 1 0-4h14"/></svg></span>Weed Detection Research Paper</a>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head" data-reveal>
+        <h2>Projects</h2>
+        <p>Featured projects from Ajay's portfolio, rewritten into a sharper presentation.</p>
+      </div>
+      <div class="grid three">
+        <article class="project" data-reveal>
+          <div class="project-art">
+            <div class="cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="project-body">
+            <h3>Sign Language Detection</h3>
+            <p>Computer vision system that recognizes hand gestures and translates them into text using real-time sign detection.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">TensorFlow</span></div>
+          </div>
+        </article>
+        <article class="project" data-reveal>
+          <div class="project-art">
+            <div class="cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="project-body">
+            <h3>Portfolio Website</h3>
+            <p>React-based personal portfolio website with modern Gen-Z inspired UI, smooth section scrolling, and Netlify deployment.</p>
+            <div class="tags"><span class="tag">React.js</span><span class="tag">EmailJS</span><span class="tag">Netlify</span></div>
+          </div>
+        </article>
+        <article class="project" data-reveal>
+          <div class="project-art">
+            <div class="cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="project-body">
+            <h3>Library Management System</h3>
+            <p>Java and MySQL system for book records, student information, issue operations, return operations, and efficient data retrieval.</p>
+            <div class="tags"><span class="tag">Java</span><span class="tag">MySQL</span><span class="tag">Database</span></div>
+          </div>
+        </article>
+        <article class="project" data-reveal>
+          <div class="project-art">
+            <div class="cube"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="project-body">
+            <h3>Weed Detection System</h3>
+            <p>Machine learning system for detecting weeds in agricultural fields using image processing and computer vision techniques.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">ML</span></div>
+            <div class="action-row">
+              <a class="mini-action" href="https://jscer.org/wp-content/uploads/2026/04/5/Weed%20detection.pdf" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24"><path d="M4 19.5V6a2 2 0 0 1 2-2h14v16H6a2 2 0 0 1 0-4h14"/></svg>
+                Research Paper
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="extras">
+      <div class="section-head" data-reveal>
+        <h2>Beyond Code</h2>
+        <p>Creative and extracurricular strengths that add personality to Ajay's engineering profile.</p>
+      </div>
+      <div class="grid three">
+        <article class="panel" data-reveal>
+          <span class="icon coral"><svg viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></span>
+          <h3>Content Creator</h3>
+          <p>Created gym and technology-related content with 20K+ views across social media platforms.</p>
+        </article>
+        <article class="panel" data-reveal>
+          <span class="icon gold"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+          <h3>Editing & Media</h3>
+          <p>Passionate about photography and video editing using VN, CapCut, and Lightroom.</p>
+        </article>
+        <article class="panel" data-reveal>
+          <span class="icon mint"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <h3>Peer Support</h3>
+          <p>Assists peers with programming concepts, project development, and resume building.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head" data-reveal>
+        <h2>Contact</h2>
+        <p>Make it easy for recruiters, seniors, and collaborators to reach you.</p>
+      </div>
+      <div class="contact">
+        <div class="contact-box" data-reveal>
+          <span class="icon mint"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg></span>
+          <h3>Let’s build something useful.</h3>
+          <p class="lead">Ajay is based in Alwar, Rajasthan and is seeking software development opportunities.</p>
+          <div class="contact-links">
+            <a href="mailto:ajay.techjourney@gmail.com"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>ajay.techjourney@gmail.com</a>
+            <a href="tel:+917878286373"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.72c.13.96.35 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.26-1.26a2 2 0 0 1 2.11-.45c.91.35 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>+91 78782 86373</a>
+            <a href="https://ajay-protfolio.netlify.app/"><svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>ajay-protfolio.netlify.app</a>
+            <a href="https://github.com/MR-Ajay1804"><svg viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9.5C4 13 7 15 10 15a4.8 4.8 0 0 0-1 3.5v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>github.com/MR-Ajay1804</a>
+            <a href="https://linkedin.com/in/ajay1804"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><path d="M2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>linkedin.com/in/ajay1804</a>
+          </div>
+        </div>
+        <div class="contact-box" data-reveal>
+          <form>
+            <input aria-label="Name" placeholder="Name" />
+            <input aria-label="Email" placeholder="Email" />
+            <textarea aria-label="Message" placeholder="Message"></textarea>
+            <button class="primary" type="button">
+              <svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2025 Ajay Kumar Saini. Modern 3D portfolio redesign.</div>
+  </footer>
+
+  <script>
+    const canvas = document.querySelector("#stars");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function sizeCanvas() {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(window.innerWidth * ratio);
+      canvas.height = Math.floor(window.innerHeight * ratio);
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      particles = Array.from({ length: Math.min(86, Math.floor(window.innerWidth / 16)) }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        z: Math.random() * 1 + 0.2,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45
+      }));
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      for (const p of particles) {
+        p.x += p.vx * p.z;
+        p.y += p.vy * p.z;
+        if (p.x < -20) p.x = window.innerWidth + 20;
+        if (p.x > window.innerWidth + 20) p.x = -20;
+        if (p.y < -20) p.y = window.innerHeight + 20;
+        if (p.y > window.innerHeight + 20) p.y = -20;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.6 + p.z, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(190, 238, 255, ${0.18 + p.z * 0.28})`;
+        ctx.fill();
+      }
+      for (let i = 0; i < particles.length; i += 1) {
+        for (let j = i + 1; j < particles.length; j += 1) {
+          const a = particles[i];
+          const b = particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const distance = Math.hypot(dx, dy);
+          if (distance < 116) {
+            ctx.strokeStyle = `rgba(98, 168, 255, ${0.16 * (1 - distance / 116)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll("[data-reveal]").forEach((item) => observer.observe(item));
+    document.querySelectorAll(".panel, .project, .contact-box").forEach((card) => {
+      card.addEventListener("mousemove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `translateY(-8px) rotateX(${y * -7}deg) rotateY(${x * 7}deg) scale(1.025)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    });
+    window.addEventListener("resize", sizeCanvas);
+    sizeCanvas();
+    draw();
+  </script>
+</body>
+</html>
