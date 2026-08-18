@@ -1969,7 +1969,73 @@
 .ai-toggle svg {
   animation: aiSpark 1.8s ease-in-out infinite;
 }
+/* =========================================
+   MOBILE ASK AJAY AI BUTTON
+   ========================================= */
 
+@media (max-width: 640px) {
+  .pet-tail,
+  .pet-spark {
+    display: none;
+  }
+
+  .pet-bubble {
+    display: block;
+
+    position: fixed;
+
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: 18px;
+
+    transform: translateX(-50%) translateY(8px) scale(0.94);
+
+    z-index: 100;
+
+    padding: 12px 18px;
+
+    min-width: 145px;
+
+    border: 1px solid rgba(65, 255, 210, 0.45);
+    border-radius: 8px;
+
+    background:
+      linear-gradient(
+        135deg,
+        rgba(10, 28, 42, 0.96),
+        rgba(15, 93, 87, 0.94)
+      );
+
+    color: white;
+
+    font-size: 0.82rem;
+    font-weight: 800;
+
+    white-space: nowrap;
+
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.35),
+      0 0 18px rgba(65, 255, 210, 0.18);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease;
+  }
+
+  .portfolio-pet.active .pet-bubble {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1);
+  }
+}
 /* =========================================
    PORTFOLIO PET
    ========================================= */
@@ -2854,10 +2920,13 @@
   }
 
   .pet-tail,
-  .pet-bubble,
-  .pet-spark {
-    display: none;
-  }
+.pet-spark {
+  display: none;
+}
+
+.pet-bubble {
+  display: block;
+}
 
   .portfolio-pet .pet-paw {
     width: 17px !important;
