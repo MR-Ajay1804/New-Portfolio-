@@ -39,9 +39,18 @@ export default function Contact({ links, helpers }) {
             <p className="hidden-field">
               <label>Don&apos;t fill this out: <input name="bot-field" /></label>
             </p>
-            <input name="name" aria-label="Name" placeholder="Name" required />
-            <input name="email" type="email" aria-label="Email" placeholder="Email" required />
-            <textarea name="message" aria-label="Message" placeholder="Message" required />
+            <label className="field">
+              <span>Your name</span>
+              <input name="name" placeholder="Enter your full name" required />
+            </label>
+            <label className="field">
+              <span>Your email</span>
+              <input name="email" type="email" placeholder="Enter your email address" required />
+            </label>
+            <label className="field">
+              <span>Your message</span>
+              <textarea name="message" placeholder="Write your message, project idea, or opportunity here..." required />
+            </label>
             <button className="primary" type="submit"><Icon name="send" />Send Message</button>
           </form>
         </div>

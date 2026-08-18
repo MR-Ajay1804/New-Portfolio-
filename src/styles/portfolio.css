@@ -1,4 +1,4 @@
-﻿:root {
+:root {
       --ink: #f4fbff;
       --muted: #aab7c9;
       --line: rgba(170, 220, 255, 0.18);
@@ -43,6 +43,10 @@
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    [hidden] {
+      display: none !important;
     }
 
     .scene {
@@ -206,7 +210,7 @@
       gap: clamp(28px, 5vw, 72px);
       align-items: center;
       min-height: 92vh;
-      padding: 120px 0 60px;
+      padding: 92px 0 60px;
     }
 
     .kicker {
@@ -327,8 +331,8 @@
 
     .photo-stage {
       position: relative;
-      width: min(72vw, 350px);
-      aspect-ratio: 0.82;
+      width: min(72vw, 380px);
+      aspect-ratio: 0.78;
       transform-style: preserve-3d;
       animation: floatCard 5.6s ease-in-out infinite;
     }
@@ -336,10 +340,12 @@
     .photo-card {
       position: absolute;
       inset: 0;
-      padding: 18px;
+      padding: 12px;
       border: 1px solid rgba(170, 220, 255, 0.2);
       border-radius: var(--radius);
-      background: linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(14, 116, 144, 0.24));
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(14, 116, 144, 0.24)),
+        linear-gradient(135deg, rgba(65, 255, 210, 0.16), rgba(255, 109, 158, 0.1));
       box-shadow: var(--shadow);
       transform: rotateY(-12deg) rotateX(8deg);
       transform-style: preserve-3d;
@@ -354,14 +360,25 @@
       border-radius: 7px;
       border: 1px solid rgba(65, 255, 210, 0.25);
       background:
-        linear-gradient(135deg, rgba(65, 255, 210, 0.16), rgba(98, 168, 255, 0.12)),
+        linear-gradient(180deg, rgba(230, 248, 255, 0.95), rgba(198, 219, 226, 0.78)),
         repeating-linear-gradient(45deg, transparent 0 18px, rgba(255, 255, 255, 0.04) 18px 19px);
     }
 
+    .photo-slot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 58%, rgba(5, 7, 19, 0.34)),
+        radial-gradient(circle at 50% 26%, transparent 0 34%, rgba(65, 255, 210, 0.12) 66%, transparent 100%);
+      pointer-events: none;
+    }
+
     .photo-slot img {
-      width: 70%;
-      height: 70%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      object-position: 50% 22%;
       animation: portraitPulse 7s ease-in-out infinite;
     }
 
@@ -715,7 +732,173 @@
     .timeline-item:hover .icon,
     .cert:hover .icon,
     .contact-box:hover .icon,
-    .contact-links a:hover svg {
+    .contact-links a:hover
+    .ai-assistant {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 40;
+      display: grid;
+      justify-items: end;
+      gap: 12px;
+      max-width: calc(100vw - 28px);
+    }
+
+    .ai-toggle {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 16px;
+      border: 1px solid rgba(65, 255, 210, 0.34);
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 118, 110, 0.86));
+      color: var(--ink);
+      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.34), 0 0 28px rgba(65, 255, 210, 0.18);
+      cursor: pointer;
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .ai-toggle:hover {
+      border-color: rgba(65, 255, 210, 0.72);
+      box-shadow: 0 24px 66px rgba(65, 255, 210, 0.2), 0 0 34px rgba(98, 168, 255, 0.18);
+      transform: translateY(-3px);
+    }
+
+    .ai-panel {
+      width: min(390px, calc(100vw - 28px));
+      overflow: hidden;
+      border: 1px solid rgba(170, 220, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(7, 10, 22, 0.94);
+      box-shadow: 0 28px 88px rgba(0, 0, 0, 0.46);
+      backdrop-filter: blur(18px);
+      animation: aiRise 220ms ease both;
+    }
+
+    .ai-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid rgba(170, 220, 255, 0.14);
+      background: rgba(65, 255, 210, 0.08);
+    }
+
+    .ai-head strong,
+    .ai-head span {
+      display: block;
+    }
+
+    .ai-head span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .ai-head button {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(170, 220, 255, 0.18);
+      border-radius: 7px;
+      background: rgba(8, 12, 26, 0.72);
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .ai-messages {
+      display: grid;
+      gap: 10px;
+      max-height: 310px;
+      overflow-y: auto;
+      padding: 14px;
+    }
+
+    .ai-message {
+      width: fit-content;
+      max-width: 88%;
+      margin: 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(170, 220, 255, 0.14);
+      border-radius: 8px;
+      color: var(--muted);
+      background: rgba(12, 18, 36, 0.7);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .ai-message.user {
+      justify-self: end;
+      border-color: rgba(65, 255, 210, 0.28);
+      background: rgba(65, 255, 210, 0.11);
+      color: var(--ink);
+    }
+
+    .ai-suggestions {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 0 14px 12px;
+      scrollbar-width: none;
+    }
+
+    .ai-suggestions::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ai-suggestions button {
+      flex: 0 0 auto;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 209, 102, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 209, 102, 0.08);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .ai-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 42px;
+      gap: 8px;
+      padding: 14px;
+      border-top: 1px solid rgba(170, 220, 255, 0.14);
+    }
+
+    .ai-form input {
+      min-height: 42px;
+      padding: 0 12px;
+    }
+
+    .ai-form button {
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(65, 255, 210, 0.32);
+      border-radius: 7px;
+      background: rgba(65, 255, 210, 0.12);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .ai-form button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    @keyframes aiRise {
+      from { opacity: 0; transform: translateY(18px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    svg {
       animation: hoverZoom 900ms ease-in-out infinite alternate;
     }
 
@@ -914,7 +1097,173 @@
       animation: floatGlyph 4.8s ease-in-out infinite;
     }
 
-    .project-icon svg {
+    .project-icon
+    .ai-assistant {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 40;
+      display: grid;
+      justify-items: end;
+      gap: 12px;
+      max-width: calc(100vw - 28px);
+    }
+
+    .ai-toggle {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 16px;
+      border: 1px solid rgba(65, 255, 210, 0.34);
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 118, 110, 0.86));
+      color: var(--ink);
+      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.34), 0 0 28px rgba(65, 255, 210, 0.18);
+      cursor: pointer;
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .ai-toggle:hover {
+      border-color: rgba(65, 255, 210, 0.72);
+      box-shadow: 0 24px 66px rgba(65, 255, 210, 0.2), 0 0 34px rgba(98, 168, 255, 0.18);
+      transform: translateY(-3px);
+    }
+
+    .ai-panel {
+      width: min(390px, calc(100vw - 28px));
+      overflow: hidden;
+      border: 1px solid rgba(170, 220, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(7, 10, 22, 0.94);
+      box-shadow: 0 28px 88px rgba(0, 0, 0, 0.46);
+      backdrop-filter: blur(18px);
+      animation: aiRise 220ms ease both;
+    }
+
+    .ai-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid rgba(170, 220, 255, 0.14);
+      background: rgba(65, 255, 210, 0.08);
+    }
+
+    .ai-head strong,
+    .ai-head span {
+      display: block;
+    }
+
+    .ai-head span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .ai-head button {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(170, 220, 255, 0.18);
+      border-radius: 7px;
+      background: rgba(8, 12, 26, 0.72);
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .ai-messages {
+      display: grid;
+      gap: 10px;
+      max-height: 310px;
+      overflow-y: auto;
+      padding: 14px;
+    }
+
+    .ai-message {
+      width: fit-content;
+      max-width: 88%;
+      margin: 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(170, 220, 255, 0.14);
+      border-radius: 8px;
+      color: var(--muted);
+      background: rgba(12, 18, 36, 0.7);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .ai-message.user {
+      justify-self: end;
+      border-color: rgba(65, 255, 210, 0.28);
+      background: rgba(65, 255, 210, 0.11);
+      color: var(--ink);
+    }
+
+    .ai-suggestions {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 0 14px 12px;
+      scrollbar-width: none;
+    }
+
+    .ai-suggestions::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ai-suggestions button {
+      flex: 0 0 auto;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 209, 102, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 209, 102, 0.08);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .ai-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 42px;
+      gap: 8px;
+      padding: 14px;
+      border-top: 1px solid rgba(170, 220, 255, 0.14);
+    }
+
+    .ai-form input {
+      min-height: 42px;
+      padding: 0 12px;
+    }
+
+    .ai-form button {
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(65, 255, 210, 0.32);
+      border-radius: 7px;
+      background: rgba(65, 255, 210, 0.12);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .ai-form button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    @keyframes aiRise {
+      from { opacity: 0; transform: translateY(18px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    svg {
       width: 34px;
       height: 34px;
       color: var(--accent);
@@ -1159,6 +1508,17 @@
       gap: 12px;
     }
 
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field span {
+      color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
     .hidden-field {
       display: none;
     }
@@ -1174,6 +1534,18 @@
       outline: none;
     }
 
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(170, 183, 201, 0.78);
+      opacity: 1;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(65, 255, 210, 0.58);
+      box-shadow: 0 0 0 3px rgba(65, 255, 210, 0.12);
+    }
+
     textarea {
       min-height: 132px;
       resize: vertical;
@@ -1183,6 +1555,170 @@
       padding: 30px 0 42px;
       color: var(--muted);
       text-align: center;
+    }
+    .ai-assistant {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 40;
+      display: grid;
+      justify-items: end;
+      gap: 12px;
+      max-width: calc(100vw - 28px);
+    }
+
+    .ai-toggle {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 16px;
+      border: 1px solid rgba(65, 255, 210, 0.34);
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 118, 110, 0.86));
+      color: var(--ink);
+      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.34), 0 0 28px rgba(65, 255, 210, 0.18);
+      cursor: pointer;
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .ai-toggle:hover {
+      border-color: rgba(65, 255, 210, 0.72);
+      box-shadow: 0 24px 66px rgba(65, 255, 210, 0.2), 0 0 34px rgba(98, 168, 255, 0.18);
+      transform: translateY(-3px);
+    }
+
+    .ai-panel {
+      width: min(390px, calc(100vw - 28px));
+      overflow: hidden;
+      border: 1px solid rgba(170, 220, 255, 0.2);
+      border-radius: 8px;
+      background: rgba(7, 10, 22, 0.94);
+      box-shadow: 0 28px 88px rgba(0, 0, 0, 0.46);
+      backdrop-filter: blur(18px);
+      animation: aiRise 220ms ease both;
+    }
+
+    .ai-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid rgba(170, 220, 255, 0.14);
+      background: rgba(65, 255, 210, 0.08);
+    }
+
+    .ai-head strong,
+    .ai-head span {
+      display: block;
+    }
+
+    .ai-head span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .ai-head button {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(170, 220, 255, 0.18);
+      border-radius: 7px;
+      background: rgba(8, 12, 26, 0.72);
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .ai-messages {
+      display: grid;
+      gap: 10px;
+      max-height: 310px;
+      overflow-y: auto;
+      padding: 14px;
+    }
+
+    .ai-message {
+      width: fit-content;
+      max-width: 88%;
+      margin: 0;
+      padding: 10px 12px;
+      border: 1px solid rgba(170, 220, 255, 0.14);
+      border-radius: 8px;
+      color: var(--muted);
+      background: rgba(12, 18, 36, 0.7);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .ai-message.user {
+      justify-self: end;
+      border-color: rgba(65, 255, 210, 0.28);
+      background: rgba(65, 255, 210, 0.11);
+      color: var(--ink);
+    }
+
+    .ai-suggestions {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 0 14px 12px;
+      scrollbar-width: none;
+    }
+
+    .ai-suggestions::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ai-suggestions button {
+      flex: 0 0 auto;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 209, 102, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 209, 102, 0.08);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .ai-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 42px;
+      gap: 8px;
+      padding: 14px;
+      border-top: 1px solid rgba(170, 220, 255, 0.14);
+    }
+
+    .ai-form input {
+      min-height: 42px;
+      padding: 0 12px;
+    }
+
+    .ai-form button {
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(65, 255, 210, 0.32);
+      border-radius: 7px;
+      background: rgba(65, 255, 210, 0.12);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .ai-form button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    @keyframes aiRise {
+      from { opacity: 0; transform: translateY(18px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     svg {
@@ -1223,7 +1759,7 @@
       }
 
       .hero {
-        padding-top: 112px;
+        padding-top: 86px;
       }
 
       h1 {
@@ -1314,7 +1850,7 @@
       }
 
       .photo-stage {
-        width: min(78vw, 300px);
+        width: min(78vw, 320px);
       }
 
       .floating-chip {
@@ -1356,6 +1892,22 @@
         bottom: 16px;
         width: 86px;
       }
+      .ai-assistant {
+        right: 10px;
+        bottom: 10px;
+      }
+
+      .ai-toggle span {
+        display: none;
+      }
+
+      .ai-toggle {
+        width: 52px;
+        min-height: 52px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1367,3 +1919,991 @@
         transition-duration: 1ms !important;
       }
     }
+
+
+/* Ask Ajay AI motion upgrade */
+.ai-message.message-pop {
+  animation: aiMessagePop 260ms ease both;
+}
+
+.ai-message.assistant.is-typing {
+  border-color: rgba(65, 255, 210, 0.22);
+  box-shadow: inset 0 0 18px rgba(65, 255, 210, 0.06);
+}
+
+.typing-caret {
+  display: inline-block;
+  width: 7px;
+  height: 1.1em;
+  margin-left: 3px;
+  border-radius: 99px;
+  background: var(--mint);
+  vertical-align: -0.18em;
+  animation: caretBlink 780ms steps(2, start) infinite;
+}
+
+.ai-message.thinking {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  min-width: 64px;
+}
+
+.ai-message.thinking span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 14px rgba(65, 255, 210, 0.46);
+  animation: thinkingDot 820ms ease-in-out infinite;
+}
+
+.ai-message.thinking span:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.ai-message.thinking span:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.ai-toggle svg {
+  animation: aiSpark 1.8s ease-in-out infinite;
+}
+
+.portfolio-pet {
+  position: fixed;
+  left: clamp(12px, var(--pet-x), calc(100vw - 96px));
+  top: clamp(88px, var(--pet-y), calc(100vh - 130px));
+  z-index: 32;
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transform: translate3d(0, 0, 0);
+  transition: left 1.6s cubic-bezier(0.2, 0.8, 0.2, 1), top 1.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 180ms ease;
+}
+
+.portfolio-pet:hover,
+.portfolio-pet.awake {
+  filter: drop-shadow(0 0 20px rgba(65, 255, 210, 0.38));
+}
+
+.pet-body {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border: 1px solid rgba(170, 220, 255, 0.28);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(8, 12, 26, 0.94), rgba(15, 118, 110, 0.72));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  animation: petFloat 2.8s ease-in-out infinite;
+}
+
+.pet-antenna {
+  position: absolute;
+  top: -12px;
+  width: 2px;
+  height: 14px;
+  background: rgba(65, 255, 210, 0.76);
+}
+
+.pet-antenna::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 16px rgba(65, 255, 210, 0.72);
+  transform: translateX(-50%);
+}
+
+.pet-face {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 26px;
+  border-radius: 10px;
+  background: rgba(2, 6, 23, 0.62);
+}
+
+.pet-eye {
+  width: 7px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--mint);
+  box-shadow: 0 0 12px rgba(65, 255, 210, 0.82);
+  animation: petBlink 4s ease-in-out infinite;
+}
+
+.pet-glow {
+  position: absolute;
+  inset: auto 9px 7px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--mint), transparent);
+  opacity: 0.72;
+}
+
+.pet-bubble {
+  position: absolute;
+  right: 52px;
+  top: -4px;
+  min-width: max-content;
+  padding: 7px 9px;
+  border: 1px solid rgba(65, 255, 210, 0.22);
+  border-radius: 8px;
+  background: rgba(7, 10, 22, 0.86);
+  color: var(--ink);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+  font-size: 0.76rem;
+  font-weight: 900;
+  opacity: 0;
+  transform: translateY(8px) scale(0.94);
+  transition: opacity 180ms ease, transform 180ms ease;
+  pointer-events: none;
+}
+
+.portfolio-pet:hover .pet-bubble,
+.portfolio-pet.awake .pet-bubble {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@keyframes aiMessagePop {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes caretBlink {
+  50% { opacity: 0; }
+}
+
+@keyframes thinkingDot {
+  0%, 100% { transform: translateY(0); opacity: 0.45; }
+  50% { transform: translateY(-5px); opacity: 1; }
+}
+
+@keyframes aiSpark {
+  0%, 100% { transform: rotate(0deg) scale(1); filter: drop-shadow(0 0 0 rgba(65, 255, 210, 0)); }
+  50% { transform: rotate(12deg) scale(1.12); filter: drop-shadow(0 0 12px rgba(65, 255, 210, 0.58)); }
+}
+
+@keyframes petFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-9px) rotate(2deg); }
+}
+
+@keyframes petBlink {
+  0%, 88%, 100% { transform: scaleY(1); }
+  92% { transform: scaleY(0.15); }
+}
+
+@media (max-width: 640px) {
+  .portfolio-pet {
+    width: 56px;
+    height: 56px;
+    left: auto !important;
+    right: 74px;
+    top: auto !important;
+    bottom: 10px;
+  }
+
+  .pet-body {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+  }
+
+  .pet-face {
+    width: 32px;
+    height: 22px;
+  }
+
+  .pet-bubble {
+    display: none;
+  }
+}
+
+/* Cute portfolio companion */
+.portfolio-pet {
+  position: fixed;
+  left: clamp(12px, var(--pet-x), calc(100vw - 110px));
+  top: clamp(92px, var(--pet-y), calc(100vh - 140px));
+  z-index: 36;
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translate3d(0, 0, 0);
+  transition: left 1.8s cubic-bezier(0.2, 0.9, 0.18, 1), top 1.8s cubic-bezier(0.2, 0.9, 0.18, 1), filter 220ms ease;
+}
+
+.portfolio-pet:hover,
+.portfolio-pet.active {
+  filter: drop-shadow(0 0 24px rgba(65, 255, 210, 0.42));
+}
+
+.pet-shadow {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 7px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.26);
+  filter: blur(4px);
+  animation: petShadow 3s ease-in-out infinite;
+}
+
+.pet-body {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  border: 1px solid rgba(170, 220, 255, 0.28);
+  border-radius: 24px 24px 20px 20px;
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.2), transparent 26%),
+    linear-gradient(145deg, rgba(11, 17, 35, 0.98), rgba(15, 118, 110, 0.86));
+  box-shadow: 0 20px 52px rgba(0, 0, 0, 0.34), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  animation: petFloatCute 3s ease-in-out infinite;
+  transform-origin: 50% 88%;
+}
+
+.pet-ear {
+  position: absolute;
+  top: -10px;
+  width: 23px;
+  height: 24px;
+  border: 1px solid rgba(65, 255, 210, 0.24);
+  border-radius: 13px 13px 5px 5px;
+  background: linear-gradient(145deg, rgba(13, 19, 38, 0.98), rgba(98, 168, 255, 0.38));
+  transform-origin: bottom center;
+}
+
+.pet-ear.left {
+  left: 8px;
+  transform: rotate(-18deg);
+  animation: petEarLeft 4.2s ease-in-out infinite;
+}
+
+.pet-ear.right {
+  right: 8px;
+  transform: rotate(18deg);
+  animation: petEarRight 4.2s ease-in-out infinite;
+}
+
+.pet-face {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 11px;
+  place-items: center;
+  width: 47px;
+  height: 34px;
+  border-radius: 14px;
+  background: rgba(2, 6, 23, 0.66);
+  box-shadow: inset 0 0 18px rgba(65, 255, 210, 0.08);
+}
+
+.pet-eye {
+  width: 9px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--mint);
+  box-shadow: 0 0 12px rgba(65, 255, 210, 0.82);
+  animation: petBlink 4.4s ease-in-out infinite;
+}
+
+.pet-mouth {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  width: 13px;
+  height: 6px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.76);
+  border-radius: 0 0 999px 999px;
+  transform: translateX(-50%);
+}
+
+.pet-cheek {
+  position: absolute;
+  top: 39px;
+  width: 8px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 109, 158, 0.58);
+  filter: blur(0.2px);
+}
+
+.pet-cheek.left { left: 13px; }
+.pet-cheek.right { right: 13px; }
+
+.pet-paw {
+  position: absolute;
+  bottom: -5px;
+  width: 18px;
+  height: 12px;
+  border-radius: 10px;
+  background: rgba(65, 255, 210, 0.22);
+  border: 1px solid rgba(65, 255, 210, 0.2);
+}
+
+.pet-paw.left {
+  left: 13px;
+  animation: petLeftPaw 3.2s ease-in-out infinite;
+}
+
+.pet-paw.right {
+  right: 13px;
+  animation: petRightPaw 3.2s ease-in-out infinite;
+}
+
+.pet-tail {
+  position: absolute;
+  right: -14px;
+  bottom: 13px;
+  width: 24px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(65, 255, 210, 0.44), rgba(98, 168, 255, 0.16));
+  transform-origin: left center;
+  animation: petTail 1.4s ease-in-out infinite;
+}
+
+.pet-spark {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 15px rgba(255, 209, 102, 0.72);
+  opacity: 0;
+}
+
+.pet-spark.one {
+  top: -15px;
+  right: 5px;
+  animation: petSpark 2.8s ease-in-out infinite;
+}
+
+.pet-spark.two {
+  left: -9px;
+  top: 16px;
+  animation: petSpark 2.8s ease-in-out 1.1s infinite;
+}
+
+.pet-bubble {
+  position: absolute;
+  right: 66px;
+  top: 2px;
+  min-width: max-content;
+  padding: 8px 10px;
+  border: 1px solid rgba(65, 255, 210, 0.25);
+  border-radius: 8px;
+  background: rgba(7, 10, 22, 0.9);
+  color: var(--ink);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+  font-size: 0.78rem;
+  font-weight: 900;
+  opacity: 0;
+  transform: translateY(8px) scale(0.94);
+  transition: opacity 200ms ease, transform 200ms ease;
+  pointer-events: none;
+}
+
+.portfolio-pet:hover .pet-bubble,
+.portfolio-pet.active .pet-bubble {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.portfolio-pet.happy .pet-mouth,
+.portfolio-pet.excited .pet-mouth,
+.portfolio-pet.active .pet-mouth {
+  width: 16px;
+  height: 8px;
+  border-bottom-color: var(--mint);
+}
+
+.portfolio-pet.thinking .pet-eye.right {
+  height: 4px;
+  transform: translateY(3px);
+}
+
+.portfolio-pet.wave .pet-paw.right,
+.portfolio-pet:hover .pet-paw.right,
+.portfolio-pet.active .pet-paw.right {
+  animation: petWave 620ms ease-in-out infinite alternate;
+}
+
+.portfolio-pet.excited .pet-body,
+.portfolio-pet.active .pet-body {
+  animation: petHappyBounce 620ms ease-in-out infinite alternate;
+}
+
+@keyframes petFloatCute {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes petHappyBounce {
+  from { transform: translateY(-5px) rotate(-4deg) scale(1.02); }
+  to { transform: translateY(-14px) rotate(4deg) scale(1.06); }
+}
+
+@keyframes petShadow {
+  0%, 100% { transform: scaleX(1); opacity: 0.5; }
+  50% { transform: scaleX(0.72); opacity: 0.28; }
+}
+
+@keyframes petEarLeft {
+  0%, 100% { transform: rotate(-18deg); }
+  50% { transform: rotate(-8deg); }
+}
+
+@keyframes petEarRight {
+  0%, 100% { transform: rotate(18deg); }
+  50% { transform: rotate(8deg); }
+}
+
+@keyframes petBlink {
+  0%, 88%, 100% { transform: scaleY(1); }
+  92% { transform: scaleY(0.12); }
+}
+
+@keyframes petLeftPaw {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2px); }
+}
+
+@keyframes petRightPaw {
+  0%, 100% { transform: translateY(2px); }
+  50% { transform: translateY(0); }
+}
+
+@keyframes petWave {
+  from { transform: translateY(-3px) rotate(-18deg); }
+  to { transform: translateY(-10px) rotate(28deg); }
+}
+
+@keyframes petTail {
+  0%, 100% { transform: rotate(-10deg) scaleX(1); }
+  50% { transform: rotate(18deg) scaleX(1.08); }
+}
+
+@keyframes petSpark {
+  0%, 100% { opacity: 0; transform: translateY(6px) scale(0.5); }
+  35% { opacity: 1; transform: translateY(0) scale(1); }
+  70% { opacity: 0; transform: translateY(-8px) scale(0.7); }
+}
+
+@media (max-width: 640px) {
+  .portfolio-pet {
+    width: 62px;
+    height: 62px;
+    left: auto !important;
+    right: 72px;
+    top: auto !important;
+    bottom: 9px;
+  }
+
+  .pet-body {
+    width: 49px;
+    height: 49px;
+    border-radius: 18px 18px 15px 15px;
+  }
+
+  .pet-ear {
+    width: 17px;
+    height: 18px;
+    top: -8px;
+  }
+
+  .pet-face {
+    width: 36px;
+    height: 27px;
+    column-gap: 8px;
+  }
+
+  .pet-eye {
+    width: 7px;
+    height: 10px;
+  }
+
+  .pet-tail,
+  .pet-bubble,
+  .pet-spark {
+    display: none;
+  }
+}
+/* ================================
+   PET - CURSOR REACTION
+   ================================ */
+
+/* Stronger reaction when cursor enters pet */
+.portfolio-pet:hover {
+  filter:
+    drop-shadow(0 0 12px rgba(65, 255, 210, 0.65))
+    drop-shadow(0 0 32px rgba(98, 168, 255, 0.28));
+
+  animation: petCursorShake 700ms ease-in-out;
+}
+
+/* Pet body reacts */
+.portfolio-pet:hover .pet-body {
+  animation: petCursorReact 650ms ease-in-out infinite alternate;
+}
+
+/* Eyes become more energetic */
+.portfolio-pet:hover .pet-eye {
+  animation:
+    petExcitedEyes 1.2s ease-in-out infinite,
+    petBlink 4.4s ease-in-out infinite;
+}
+
+/* Ears react */
+.portfolio-pet:hover .pet-ear.left {
+  animation: petEarReactLeft 500ms ease-in-out infinite alternate;
+}
+
+.portfolio-pet:hover .pet-ear.right {
+  animation: petEarReactRight 500ms ease-in-out infinite alternate;
+}
+
+/* Tail gets excited */
+.portfolio-pet:hover .pet-tail {
+  animation: petTailExcited 420ms ease-in-out infinite alternate;
+}
+
+/* Both paws move slightly */
+.portfolio-pet:hover .pet-paw.left {
+  animation: petPawLeftReact 500ms ease-in-out infinite alternate;
+}
+
+.portfolio-pet:hover .pet-paw.right {
+  animation: petPawRightReact 500ms ease-in-out infinite alternate;
+}
+
+/* Cheeks glow */
+.portfolio-pet:hover .pet-cheek {
+  box-shadow: 0 0 12px rgba(255, 109, 158, 0.55);
+  transform: scale(1.25);
+}
+
+/* Mouth becomes a bigger smile */
+.portfolio-pet:hover .pet-mouth {
+  width: 17px;
+  height: 9px;
+  border-bottom-color: var(--mint);
+  filter: drop-shadow(0 0 5px rgba(65, 255, 210, 0.6));
+}
+
+
+/* ================================
+   PET ANIMATIONS
+   ================================ */
+
+@keyframes petCursorReact {
+  0% {
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(3deg) scale(1.06);
+  }
+
+  100% {
+    transform: translateY(-12px) rotate(-3deg) scale(1.09);
+  }
+}
+
+@keyframes petCursorShake {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    transform: translate3d(-3px, 0, 0) rotate(-2deg);
+  }
+
+  40% {
+    transform: translate3d(3px, -2px, 0) rotate(2deg);
+  }
+
+  60% {
+    transform: translate3d(-2px, 0, 0) rotate(-1deg);
+  }
+
+  80% {
+    transform: translate3d(2px, -1px, 0) rotate(1deg);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes petExcitedEyes {
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+
+  50% {
+    transform: scaleY(1.15) scaleX(1.12);
+  }
+}
+
+@keyframes petEarReactLeft {
+  from {
+    transform: rotate(-18deg);
+  }
+
+  to {
+    transform: rotate(-34deg);
+  }
+}
+
+@keyframes petEarReactRight {
+  from {
+    transform: rotate(18deg);
+  }
+
+  to {
+    transform: rotate(34deg);
+  }
+}
+
+@keyframes petTailExcited {
+  from {
+    transform: rotate(-18deg) scaleX(1);
+  }
+
+  to {
+    transform: rotate(28deg) scaleX(1.15);
+  }
+}
+
+@keyframes petPawLeftReact {
+  from {
+    transform: translateY(0) rotate(0);
+  }
+
+  to {
+    transform: translateY(-4px) rotate(-8deg);
+  }
+}
+
+@keyframes petPawRightReact {
+  from {
+    transform: translateY(0) rotate(0);
+  }
+
+  to {
+    transform: translateY(-8px) rotate(12deg);
+  }
+}
+
+
+/* Respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-pet:hover,
+  .portfolio-pet:hover .pet-body,
+  .portfolio-pet:hover .pet-eye,
+  .portfolio-pet:hover .pet-ear.left,
+  .portfolio-pet:hover .pet-ear.right,
+  .portfolio-pet:hover .pet-tail,
+  .portfolio-pet:hover .pet-paw.left,
+  .portfolio-pet:hover .pet-paw.right {
+    animation: none;
+  }
+}
+/* =========================================
+   PET - MOUSE REACTION
+   ========================================= */
+
+.portfolio-pet {
+  overflow: visible !important;
+}
+
+/* Eyes smoothly follow cursor */
+.portfolio-pet .pet-eye {
+  position: relative;
+  z-index: 5;
+  transition: transform 120ms ease-out;
+}
+
+/* Pet reacts when cursor enters */
+.portfolio-pet:hover .pet-body {
+  animation: petMouseReaction 650ms ease-in-out infinite alternate;
+}
+
+/* Both paws stay visible */
+.portfolio-pet .pet-paw.left {
+  left: 7px;
+  bottom: -7px;
+  z-index: 6;
+}
+
+.portfolio-pet .pet-paw.right {
+  right: 7px;
+  bottom: -7px;
+  z-index: 6;
+}
+
+/* Make paws slightly bigger */
+.portfolio-pet .pet-paw {
+  width: 20px;
+  height: 14px;
+  border-radius: 12px;
+  z-index: 6;
+}
+
+/* Left paw */
+.portfolio-pet:hover .pet-paw.left {
+  animation: petLeftWave 500ms ease-in-out infinite alternate;
+}
+
+/* Right paw waves */
+.portfolio-pet:hover .pet-paw.right {
+  animation: petRightWave 500ms ease-in-out infinite alternate;
+}
+
+/* Tail reacts */
+.portfolio-pet:hover .pet-tail {
+  animation: petTailExcited 400ms ease-in-out infinite alternate;
+}
+
+/* Ears react */
+.portfolio-pet:hover .pet-ear.left {
+  animation: petEarLeftReact 450ms ease-in-out infinite alternate;
+}
+
+.portfolio-pet:hover .pet-ear.right {
+  animation: petEarRightReact 450ms ease-in-out infinite alternate;
+}
+
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+
+@keyframes petMouseReaction {
+  0% {
+    transform: translateY(0) rotate(-2deg) scale(1);
+  }
+
+  50% {
+    transform: translateY(-5px) rotate(2deg) scale(1.04);
+  }
+
+  100% {
+    transform: translateY(-9px) rotate(-2deg) scale(1.07);
+  }
+}
+
+@keyframes petLeftWave {
+  from {
+    transform: rotate(-5deg) translateY(0);
+  }
+
+  to {
+    transform: rotate(-18deg) translateY(-5px);
+  }
+}
+
+@keyframes petRightWave {
+  from {
+    transform: rotate(5deg) translateY(0);
+  }
+
+  to {
+    transform: rotate(22deg) translateY(-8px);
+  }
+}
+
+@keyframes petTailExcited {
+  from {
+    transform: rotate(-12deg) scaleX(1);
+  }
+
+  to {
+    transform: rotate(28deg) scaleX(1.15);
+  }
+}
+
+@keyframes petEarLeftReact {
+  from {
+    transform: rotate(-18deg);
+  }
+
+  to {
+    transform: rotate(-32deg);
+  }
+}
+
+@keyframes petEarRightReact {
+  from {
+    transform: rotate(18deg);
+  }
+
+  to {
+    transform: rotate(32deg);
+  }
+}
+
+
+/* =========================================
+   FINAL PET FIX
+   - Both hands clearly visible
+   - Hands sit on the left/right sides
+   - Both hands react on hover
+   - Eyes animate more noticeably on hover
+   ========================================= */
+
+/* Keep the pet container large enough for both hands */
+.portfolio-pet {
+  overflow: visible !important;
+}
+
+/* Both hands */
+.portfolio-pet .pet-paw {
+  position: absolute !important;
+  z-index: 20 !important;
+  width: 20px !important;
+  height: 15px !important;
+  bottom: 8px !important;
+  border-radius: 50% !important;
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      rgba(255, 255, 255, 0.22),
+      transparent 36%
+    ),
+    rgba(65, 255, 210, 0.32) !important;
+  border: 1px solid rgba(65, 255, 210, 0.48) !important;
+  box-shadow:
+    0 0 10px rgba(65, 255, 210, 0.25),
+    inset 0 0 7px rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+/* Left hand — clearly outside the body */
+.portfolio-pet .pet-paw.left {
+  left: -9px !important;
+  right: auto !important;
+  transform: rotate(-18deg);
+  animation: petLeftPawFinal 3.2s ease-in-out infinite;
+}
+
+/* Right hand — clearly outside the body */
+.portfolio-pet .pet-paw.right {
+  right: -9px !important;
+  left: auto !important;
+  transform: rotate(18deg);
+  animation: petRightPawFinal 3.2s ease-in-out infinite;
+}
+
+/* Hover: both hands wave */
+.portfolio-pet:hover .pet-paw.left,
+.portfolio-pet.active .pet-paw.left {
+  animation: petLeftWaveFinal 520ms ease-in-out infinite alternate !important;
+}
+
+.portfolio-pet:hover .pet-paw.right,
+.portfolio-pet.active .pet-paw.right {
+  animation: petRightWaveFinal 520ms ease-in-out infinite alternate !important;
+}
+
+/* Make the eyes visibly react */
+.portfolio-pet:hover .pet-eye,
+.portfolio-pet.active .pet-eye {
+  animation:
+    petExcitedEyesFinal 900ms ease-in-out infinite,
+    petBlink 4.4s ease-in-out infinite !important;
+}
+
+/* Final hand animations */
+@keyframes petLeftPawFinal {
+  0%, 100% {
+    transform: rotate(-18deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-10deg) translateY(-3px);
+  }
+}
+
+@keyframes petRightPawFinal {
+  0%, 100% {
+    transform: rotate(18deg) translateY(0);
+  }
+  50% {
+    transform: rotate(10deg) translateY(-3px);
+  }
+}
+
+@keyframes petLeftWaveFinal {
+  from {
+    transform: rotate(-18deg) translateY(0);
+  }
+  to {
+    transform: rotate(-38deg) translateY(-7px);
+  }
+}
+
+@keyframes petRightWaveFinal {
+  from {
+    transform: rotate(18deg) translateY(0);
+  }
+  to {
+    transform: rotate(38deg) translateY(-8px);
+  }
+}
+
+@keyframes petExcitedEyesFinal {
+  0%, 100% {
+    transform: translateX(0) scaleY(1) scaleX(1);
+  }
+  25% {
+    transform: translateX(-2px) scaleY(1.08) scaleX(1.08);
+  }
+  50% {
+    transform: translateX(2px) scaleY(1.15) scaleX(1.12);
+  }
+  75% {
+    transform: translateX(-1px) scaleY(1.08) scaleX(1.08);
+  }
+}
+
+/* Mobile: keep both hands visible beside the smaller body */
+@media (max-width: 640px) {
+  .portfolio-pet .pet-paw {
+    width: 17px !important;
+    height: 13px !important;
+    bottom: 5px !important;
+  }
+
+  .portfolio-pet .pet-paw.left {
+    left: -7px !important;
+  }
+
+  .portfolio-pet .pet-paw.right {
+    right: -7px !important;
+  }
+}

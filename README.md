@@ -5,6 +5,7 @@ Modern animated React portfolio for Ajay Kumar Saini, built with Vite. It includ
 ## Live Links
 
 - Portfolio: https://ajay-protfolio.netlify.app/
+- Professional Web Resume: `/resume.html`
 - GitHub: https://github.com/MR-Ajay1804
 - Instagram: https://www.instagram.com/the.xajju/
 - LinkedIn: https://www.linkedin.com/in/ajay1804/
@@ -42,3 +43,13 @@ npm run build
 ```
 
 The production files will be generated in the `dist/` folder.
+
+## Ask Ajay AI
+
+The portfolio includes an Ask Ajay AI chatbot. It calls the Netlify function at `/api/ask-ajay`, which uses Groq from the private environment variable below:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+Set this variable in Netlify site settings before deployment. Do not paste the real key into React frontend files.

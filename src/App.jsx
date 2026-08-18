@@ -12,6 +12,8 @@ import Certificates from "./components/Certificates.jsx";
 import Extras from "./components/Extras.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
+import AskAjayAI from "./components/AskAjayAI.jsx";
+import PortfolioPet from "./components/PortfolioPet.jsx";
 
 const links = {
   profile: profileImage,
@@ -93,15 +95,73 @@ const helpers = { Icon, IconBox, Tags, ActionLink, SectionHead };
 
 const data = {
   links,
-  skills: [
-    { icon: "code", tone: "mint", title: "Full Stack Development", text: "JavaScript, React.js, responsive UI, APIs, Firebase, MySQL, and deployment-ready web applications with clean user flows.", tags: ["JavaScript", "React.js", "APIs"] },
-    { icon: "sparkle", tone: "violet", title: "AI Tools & Prompt Engineering", text: "Efficient use of ChatGPT, Gemini, Claude AI, Claude Code, Codex, and Nano Banana for coding, debugging, research, content, and faster delivery.", tags: ["ChatGPT", "Gemini", "Claude"] },
-    { icon: "hand", tone: "blue", title: "AI / ML Projects", text: "Practical AI project experience with weed detection, sign language detection, Python, OpenCV, image processing, and ML fundamentals.", tags: ["Python", "OpenCV", "ML"] },
-    { icon: "database", tone: "blue", title: "Backend & Data", text: "API integration, backend connectivity, Firebase, MySQL, database flow, authentication concepts, and dynamic web features.", tags: ["Firebase", "MySQL", "Auth"] },
-    { icon: "external", tone: "gold", title: "Deployment Platforms", text: "Comfortable deploying and maintaining projects across Vercel, Render, Netlify, GitHub, and production-ready web hosting workflows.", tags: ["Vercel", "Render", "Netlify"] },
-    { icon: "layers", tone: "mint", title: "Computer Science", text: "C++, DSA, OOP, DBMS, Computer Networks, Microprocessors, programming fundamentals, and structured problem solving.", tags: ["C++", "DSA", "OOP"] },
-    { icon: "check", tone: "coral", title: "Soft Skills", text: "Content creation, peer support, resume building help, photography, video editing, and short-form creative storytelling.", tags: ["20K+ Views", "Editing", "Mentoring"] }
-  ],
+ skills: [
+
+  { 
+    icon: "code", 
+    tone: "mint", 
+    title: "Full Stack Development", 
+    text: "JavaScript, React.js, responsive UI, APIs, Firebase, MySQL, and deployment-ready web applications with clean user flows.", 
+    tags: ["JavaScript", "React.js", "APIs"] 
+  },
+
+  { 
+    icon: "external", 
+    tone: "gold", 
+    title: "Digital Marketing & SEO", 
+    text: "Digital marketing fundamentals with a focus on SEO, keyword research, on-page optimization, technical SEO, content optimization, and website visibility.", 
+    tags: ["SEO", "Keyword Research", "On-Page SEO"] 
+  },
+
+  { 
+    icon: "sparkle", 
+    tone: "violet", 
+    title: "AI Tools & Prompt Engineering", 
+    text: "Efficient use of ChatGPT, Gemini, Claude AI, Claude Code, Codex, and Nano Banana for coding, debugging, research, content, and faster delivery.", 
+    tags: ["ChatGPT", "Gemini", "Claude"] 
+  },
+
+  { 
+    icon: "hand", 
+    tone: "blue", 
+    title: "AI / ML Projects", 
+    text: "Practical AI project experience with weed detection, sign language detection, Python, OpenCV, image processing, and ML fundamentals.", 
+    tags: ["Python", "OpenCV", "ML"] 
+  },
+
+  { 
+    icon: "database", 
+    tone: "blue", 
+    title: "Backend & Data", 
+    text: "API integration, backend connectivity, Firebase, MySQL, database flow, authentication concepts, and dynamic web features.", 
+    tags: ["Firebase", "MySQL", "Auth"] 
+  },
+
+  { 
+    icon: "external", 
+    tone: "gold", 
+    title: "Deployment Platforms", 
+    text: "Comfortable deploying and maintaining projects across Vercel, Render, Netlify, GitHub, and production-ready web hosting workflows.", 
+    tags: ["Vercel", "Render", "Netlify"] 
+  },
+
+  { 
+    icon: "layers", 
+    tone: "mint", 
+    title: "Computer Science", 
+    text: "C++, DSA, OOP, DBMS, Computer Networks, Microprocessors, programming fundamentals, and structured problem solving.", 
+    tags: ["C++", "DSA", "OOP"] 
+  },
+
+  { 
+    icon: "check", 
+    tone: "coral", 
+    title: "Soft Skills", 
+    text: "Content creation, peer support, resume building help, photography, video editing, and short-form creative storytelling.", 
+    tags: ["20K+ Views", "Editing", "Mentoring"] 
+  }
+
+],
   about: {
     intro: "I am a Full Stack Developer and CSE student who uses AI tools efficiently to move faster from idea to working product. I like building practical web apps, AI-assisted workflows, and computer vision projects that feel polished enough to share.",
     focus: ["Full Stack Developer", "AI-powered workflows", "React apps", "Computer Vision", "Fast deployment"],
@@ -368,7 +428,11 @@ export default function App() {
         <Extras extras={data.extras} helpers={helpers} />
         <Contact links={links} helpers={helpers} />
       </main>
+      <PortfolioPet />
+      <AskAjayAI helpers={helpers} />
       <Footer />
     </>
   );
 }
+
+
