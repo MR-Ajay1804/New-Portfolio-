@@ -1,3 +1,4 @@
+```toml
 [build]
   command = "npm run build"
   publish = "dist"
@@ -16,6 +17,12 @@
   status = 200
 
 [[redirects]]
+  from = "/api/ask-ajay"
+  to = "/.netlify/functions/ask-ajay"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+```
