@@ -1,4 +1,4 @@
-```jsx
+
 import React, { useState } from "react";
 
 export default function Contact({ links, helpers }) {
@@ -161,4 +161,3 @@ export default function Contact({ links, helpers }) {
     </section>
   );
 }
-```
