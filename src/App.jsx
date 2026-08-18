@@ -105,13 +105,13 @@ const data = {
     tags: ["JavaScript", "React.js", "APIs"] 
   },
 
-  { 
-    icon: "external", 
-    tone: "gold", 
-    title: "Digital Marketing & SEO", 
-    text: "Digital marketing fundamentals with a focus on SEO, keyword research, on-page optimization, technical SEO, content optimization, and website visibility.", 
-    tags: ["SEO", "Keyword Research", "On-Page SEO"] 
-  },
+{
+  icon: "external",
+  tone: "gold",
+  title: "Digital Marketing & SEO",
+  text: "Working knowledge of SEO and digital marketing, including keyword research, on-page SEO, technical SEO, content optimization, and improving website search visibility.",
+  tags: ["SEO", "Keyword Research", "Technical SEO"]
+},
 
   { 
     icon: "sparkle", 
@@ -162,15 +162,40 @@ const data = {
   }
 
 ],
-  about: {
-    intro: "I am a Full Stack Developer and CSE student who uses AI tools efficiently to move faster from idea to working product. I like building practical web apps, AI-assisted workflows, and computer vision projects that feel polished enough to share.",
-    focus: ["Full Stack Developer", "AI-powered workflows", "React apps", "Computer Vision", "Fast deployment"],
-    cards: [
-      { icon: "monitor", tone: "mint", title: "Build", text: "I turn ideas into responsive interfaces, useful features, and clean project flows with JavaScript, React, APIs, and Firebase/MySQL basics." },
-      { icon: "sparkle", tone: "violet", title: "Use AI Efficiently", text: "I use ChatGPT, Gemini, Claude, Claude Code, Codex, and Nano Banana to research, debug, design prompts, improve code, and speed up delivery." },
-      { icon: "external", tone: "gold", title: "Deploy", text: "I can take projects live on Render, Vercel, and Netlify, then present them with demos, GitHub links, and clear documentation." }
-    ]
-  },
+about: {
+  intro: "I am Ajay Kumar Saini, a Full Stack Developer and Computer Science Engineering student from Alwar, Rajasthan. I build practical React and JavaScript web applications, AI-assisted workflows, and computer vision projects, and I use modern deployment and digital marketing practices to turn ideas into polished, useful digital products.",
+
+  focus: [
+    "Full Stack Development",
+    "React.js",
+    "AI & Machine Learning",
+    "Computer Vision",
+    "Digital Marketing & SEO"
+  ],
+
+  cards: [
+    {
+      icon: "monitor",
+      tone: "mint",
+      title: "Build",
+      text: "I turn ideas into responsive web applications and useful product experiences using JavaScript, React.js, APIs, Firebase, and MySQL."
+    },
+
+    {
+      icon: "sparkle",
+      tone: "violet",
+      title: "Use AI Efficiently",
+      text: "I use ChatGPT, Gemini, Claude, Claude Code, Codex, and Nano Banana for research, debugging, coding, prompt engineering, and faster development workflows."
+    },
+
+    {
+      icon: "external",
+      tone: "gold",
+      title: "Deploy & Grow",
+      text: "I deploy projects using Render, Vercel, and Netlify, and apply digital marketing and SEO fundamentals such as keyword research, on-page optimization, technical SEO, and content optimization."
+    }
+  ]
+},
   education: [
     { time: "2022 - 2026", icon: "school", tone: "blue", title: "B.Tech in Computer Science and Engineering", text: "Modern Institute of Technology and Research Centre (MITRC), Alwar, Rajasthan. Expected graduation: June 2026." },
     { time: "2022", icon: "book", tone: "mint", title: "12th - Science (PCM)", text: "Adinath Public School, Alwar, Rajasthan." },
@@ -190,87 +215,119 @@ const data = {
     { icon: "book", tone: "coral", label: "Weed Detection Research Paper", href: links.weedPaper }
   ],
   projects: [
-    {
-      title: "Weed Detection AI",
-      type: "Deployed AI / ML Web App",
-      text: "A deployed precision-farming classifier that lets users upload plant images and predicts weed or crop output through a trained image-processing pipeline.",
-      role: "Built the web experience, connected the prediction flow, prepared project presentation, and deployed it on Render.",
-      tags: ["Python", "ML", "Render"],
-      visual: "sparkle",
-      tone: "mint",
-      highlights: ["Live Render deployment", "Image upload workflow", "Research-backed AI project"],
-      actions: [
-        { label: "Live Demo", href: links.demos.weedDetection, icon: "external" },
-        { label: "GitHub", href: links.repos.weedDetection, icon: "github" },
-        { label: "Research Paper", href: links.weedPaper, icon: "book" }
-      ]
-    },
-    {
-      title: "Sign Language Detection",
-      type: "Computer Vision Project",
-      text: "A Python computer vision project focused on recognizing hand gestures and translating signs into readable output using real-time detection concepts.",
-      role: "Created the detection workflow and dataset processing flow; deployment is planned next.",
-      tags: ["Python", "OpenCV", "AI"],
-      visual: "hand",
-      tone: "blue",
-      highlights: ["Gesture recognition", "Dataset processing", "Computer vision practice"],
-      actions: [
-        { label: "GitHub", href: links.repos.signLanguage, icon: "github" }
-      ]
-    },
-    {
-      title: "Task Manager",
-      type: "Productivity Web App",
-      text: "A clean task workflow app for creating, tracking, and organizing daily work with a simple dashboard and practical task forms.",
-      role: "Built the responsive app flow, task creation experience, and live deployment.",
-      tags: ["JavaScript", "React", "Vercel"],
-      visual: "tasks",
-      tone: "mint",
-      highlights: ["Live Vercel app", "Task dashboard", "Daily productivity flow"],
-      actions: [
-        { label: "Live Demo", href: links.demos.taskManager, icon: "external" },
-        { label: "GitHub", href: links.repos.taskManager, icon: "github" }
-      ]
-    },
-    {
-      title: "CSV Dashboard",
-      type: "Data Visualization",
-      text: "An interactive dashboard for turning CSV data into readable insights with charts, filters, and summary views. Useful for exploring tabular data quickly.",
-      role: "Designed the data exploration flow and deployed the dashboard for live use.",
-      tags: ["JavaScript", "Charts", "Dashboard"],
-      visual: "chart",
-      tone: "blue",
-      actions: [
-        { label: "Live Demo", href: links.demos.csvDashboard, icon: "external" },
-        { label: "GitHub", href: links.repos.csvDashboard, icon: "github" }
-      ]
-    },
-    {
-      title: "Library Management System",
-      type: "Full Stack Web App",
-      text: "A deployed library system for managing books and library operations with a practical admin-style interface, structured records, and smooth data handling.",
-      role: "Built a practical full-stack management workflow and deployed it on Render.",
-      tags: ["Node.js", "JavaScript", "Render"],
-      visual: "library",
-      tone: "gold",
-      actions: [
-        { label: "Live Demo", href: links.demos.library, icon: "external" },
-        { label: "GitHub", href: links.repos.library, icon: "github" }
-      ]
-    },
-    {
-      title: "3D Portfolio Website",
-      type: "Personal Brand",
-      text: "A modern React portfolio with animated visual depth, responsive sections, recruiter-ready project links, and a clean personal presentation for deployment.",
-      role: "Designed and built the portfolio as a futuristic personal brand experience.",
-      tags: ["React", "Vite", "Netlify"],
-      visual: "layers",
-      tone: "violet",
-      actions: [
-        { label: "Live Demo", href: links.demos.portfolio, icon: "external" }
-      ]
-    }
-  ],
+  {
+    title: "Weed Detection AI",
+    type: "AI / Machine Learning & Computer Vision Web App",
+    text: "An AI-powered weed detection web application that uses plant image uploads and a trained image-processing pipeline to identify weeds and crops for practical precision-farming use cases.",
+    role: "Built the web experience, connected the image prediction workflow, prepared the project presentation, and deployed the application on Render.",
+    tags: ["Python", "Machine Learning", "Computer Vision", "Render"],
+    visual: "sparkle",
+    tone: "mint",
+    highlights: [
+      "Live Render deployment",
+      "Image upload and prediction",
+      "AI-powered plant classification",
+      "Research-backed project"
+    ],
+    actions: [
+      { label: "Live Demo", href: links.demos.weedDetection, icon: "external" },
+      { label: "GitHub", href: links.repos.weedDetection, icon: "github" },
+      { label: "Research Paper", href: links.weedPaper, icon: "book" }
+    ]
+  },
+
+  {
+    title: "Sign Language Detection",
+    type: "Python & Computer Vision Project",
+    text: "A Python and OpenCV computer vision project for recognizing hand gestures and signs through image processing and real-time detection concepts.",
+    role: "Created the gesture-detection workflow and dataset processing pipeline while developing practical computer vision skills.",
+    tags: ["Python", "OpenCV", "Computer Vision", "AI"],
+    visual: "hand",
+    tone: "blue",
+    highlights: [
+      "Gesture recognition",
+      "Image processing",
+      "Dataset processing",
+      "Computer vision practice"
+    ],
+    actions: [
+      { label: "GitHub", href: links.repos.signLanguage, icon: "github" }
+    ]
+  },
+
+  {
+    title: "Task Manager",
+    type: "React Productivity Web Application",
+    text: "A responsive task management web application for creating, tracking, and organizing daily tasks through a simple dashboard and practical task workflow.",
+    role: "Built the responsive application flow, task creation experience, dashboard interface, and live deployment.",
+    tags: ["JavaScript", "React.js", "Web App", "Vercel"],
+    visual: "tasks",
+    tone: "mint",
+    highlights: [
+      "Live Vercel deployment",
+      "Task dashboard",
+      "Task creation workflow",
+      "Responsive interface"
+    ],
+    actions: [
+      { label: "Live Demo", href: links.demos.taskManager, icon: "external" },
+      { label: "GitHub", href: links.repos.taskManager, icon: "github" }
+    ]
+  },
+
+  {
+    title: "CSV Dashboard",
+    type: "React Data Visualization Dashboard",
+    text: "An interactive CSV data dashboard that converts tabular data into readable insights using charts, filters, summaries, and data exploration features.",
+    role: "Designed the data exploration workflow, chart-based visualization experience, and deployed the dashboard for live use.",
+    tags: ["JavaScript", "React.js", "Data Visualization", "Charts"],
+    visual: "chart",
+    tone: "blue",
+    highlights: [
+      "Interactive charts",
+      "CSV data analysis",
+      "Filters and summaries",
+      "Live deployment"
+    ],
+    actions: [
+      { label: "Live Demo", href: links.demos.csvDashboard, icon: "external" },
+      { label: "GitHub", href: links.repos.csvDashboard, icon: "github" }
+    ]
+  },
+
+  {
+    title: "Library Management System",
+    type: "Full Stack Web Application",
+    text: "A full-stack library management web application for organizing books and library operations with structured records, data handling, and an admin-style interface.",
+    role: "Built the full-stack management workflow and deployed the application on Render.",
+    tags: ["Node.js", "JavaScript", "MySQL", "Full Stack", "Render"],
+    visual: "library",
+    tone: "gold",
+    highlights: [
+      "Full-stack workflow",
+      "Book management",
+      "Structured data handling",
+      "Live Render deployment"
+    ],
+    actions: [
+      { label: "Live Demo", href: links.demos.library, icon: "external" },
+      { label: "GitHub", href: links.repos.library, icon: "github" }
+    ]
+  },
+
+  {
+    title: "3D Portfolio Website",
+    type: "React Personal Portfolio & Personal Brand",
+    text: "A modern React and Vite developer portfolio featuring animated visual design, responsive sections, project showcases, AI assistance, and SEO-focused personal branding.",
+    role: "Designed and built the portfolio as a futuristic personal brand experience, including the Ask Ajay AI assistant and SEO setup.",
+    tags: ["React.js", "Vite", "Netlify", "SEO", "AI"],
+    visual: "layers",
+    tone: "violet",
+    actions: [
+      { label: "Live Demo", href: links.demos.portfolio, icon: "external" }
+    ]
+  }
+],
   extras: [
     { icon: "video", tone: "coral", title: "Content Creator", text: "Created gym and technology-related content with 20K+ views across social media platforms." },
     { icon: "edit", tone: "gold", title: "Editing & Media", text: "Passionate about photography and video editing using VN, CapCut, and Lightroom." },

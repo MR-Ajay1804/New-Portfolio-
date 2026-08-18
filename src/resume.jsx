@@ -90,7 +90,10 @@ function ResumePage() {
 
       <section className="resume-hero">
         <div className="identity-card reveal">
-          <img src={profileImage} alt="Ajay Kumar Saini" />
+          <img
+  src={profileImage}
+  alt="Ajay Kumar Saini - Full Stack Developer and AI Engineer"
+/>
           <div>
             <p className="eyebrow">Professional Resume</p>
             <h1>Ajay Kumar Saini</h1>
