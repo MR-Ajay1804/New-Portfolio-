@@ -1921,7 +1921,10 @@
     }
 
 
-/* Ask Ajay AI motion upgrade */
+/* =========================================
+   ASK AJAY AI MOTION
+   ========================================= */
+
 .ai-message.message-pop {
   animation: aiMessagePop 260ms ease both;
 }
@@ -1969,11 +1972,14 @@
 .ai-toggle svg {
   animation: aiSpark 1.8s ease-in-out infinite;
 }
+
+
 /* =========================================
-   MOBILE ASK AJAY AI BUTTON
+   MOBILE PET BUBBLE
    ========================================= */
 
 @media (max-width: 640px) {
+
   .pet-tail,
   .pet-spark {
     display: none;
@@ -1989,7 +1995,10 @@
     top: auto;
     bottom: 18px;
 
-    transform: translateX(-50%) translateY(8px) scale(0.94);
+    transform:
+      translateX(-50%)
+      translateY(8px)
+      scale(0.94);
 
     z-index: 100;
 
@@ -1997,7 +2006,9 @@
 
     min-width: 145px;
 
-    border: 1px solid rgba(65, 255, 210, 0.45);
+    border:
+      1px solid rgba(65, 255, 210, 0.45);
+
     border-radius: 8px;
 
     background:
@@ -2034,6 +2045,60 @@
       translateX(-50%)
       translateY(0)
       scale(1);
+  }
+
+
+  /* =========================================
+     ACTUAL ASK AJAY AI BUTTON
+     ========================================= */
+
+  .ai-toggle {
+    width: auto !important;
+    min-width: 145px !important;
+
+    height: auto !important;
+
+    padding: 10px 16px !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    white-space: nowrap !important;
+
+    overflow: visible !important;
+
+    flex-shrink: 0 !important;
+  }
+
+  /* Keep the icon visible */
+  .ai-toggle svg {
+    display: block !important;
+
+    width: 20px !important;
+    height: 20px !important;
+
+    flex-shrink: 0 !important;
+  }
+
+  /* Keep Ask Ajay AI text visible */
+  .ai-toggle span,
+  .ai-toggle .label,
+  .ai-toggle .text {
+    display: inline !important;
+
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    width: auto !important;
+    max-width: none !important;
+
+    overflow: visible !important;
+
+    white-space: nowrap !important;
   }
 }
 /* =========================================
