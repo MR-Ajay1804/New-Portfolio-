@@ -7,9 +7,12 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-   <meta name="google-site-verification"
-    content="6W2fv0TKLzq07nDMdZxt0u3nlRp0NAohPpGAqsUuPtw"
-     />
+
+    <!-- Google Search Console Verification -->
+    <meta
+      name="google-site-verification"
+      content="6W2fv0TKLzq07nDMdZxt0u3nlRp0NAohPpGAqsUuPtw"
+    />
 
     <!-- SEO -->
     <meta
@@ -27,13 +30,13 @@
       content="index, follow"
     />
 
-    <title>Ajay Kumar Saini | Full Stack Developer & AI Engineer</title>
-
     <!-- Canonical URL -->
     <link
       rel="canonical"
-      href="https://ajay-kumar-saini-portfolio.netlify.app/"
+      href="https://ajaykumarsaini.me/"
     />
+
+    <title>Ajay Kumar Saini | Full Stack Developer & AI Engineer</title>
 
     <!-- Favicon -->
     <link
@@ -60,7 +63,7 @@
 
     <meta
       property="og:url"
-      content="https://ajay-kumar-saini-portfolio.netlify.app/"
+      content="https://ajaykumarsaini.me/"
     />
 
     <meta
@@ -70,7 +73,7 @@
 
     <meta
       property="og:image"
-      content="https://ajay-kumar-saini-portfolio.netlify.app/profile.jpg"
+      content="https://ajaykumarsaini.me/profile.jpg"
     />
 
     <meta
@@ -96,68 +99,88 @@
 
     <meta
       name="twitter:image"
-      content="https://ajay-kumar-saini-portfolio.netlify.app/profile.jpg"
+      content="https://ajaykumarsaini.me/profile.jpg"
     />
-    <!-- Person / Profile Structured Data -->
-<!-- ProfilePage + Person structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  "url": "https://ajay-kumar-saini-portfolio.netlify.app/",
-  "name": "Ajay Kumar Saini | Full Stack Developer & AI Engineer",
-  "description": "Personal portfolio of Ajay Kumar Saini, a Full Stack Developer and Computer Science Engineer from Alwar, Rajasthan.",
-  "mainEntity": {
-    "@type": "Person",
-    "@id": "https://ajay-kumar-saini-portfolio.netlify.app/#ajay-kumar-saini",
-    "name": "Ajay Kumar Saini",
-    "alternateName": "Ajay Saini",
-    "url": "https://ajay-kumar-saini-portfolio.netlify.app/",
-    "image": "https://ajay-kumar-saini-portfolio.netlify.app/profile.jpg",
-    "jobTitle": "Full Stack Developer & AI Engineer",
-    "description": "Full Stack Developer and Computer Science Engineer from Alwar, Rajasthan, focused on React, AI projects, computer vision, web development, and digital marketing & SEO.",
-    "sameAs": [
-      "https://github.com/MR-Ajay1804",
-      "https://www.linkedin.com/in/ajay1804/",
-      "https://www.instagram.com/the.xajju/"
-    ]
-  }
-}
-</script>
-<!-- Website structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Ajay Kumar Saini",
-  "alternateName": "Ajay Saini Portfolio",
-  "url": "https://ajay-kumar-saini-portfolio.netlify.app/"
-}
-</script>
+
+    <!-- ProfilePage + Person Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "url": "https://ajaykumarsaini.me/",
+      "name": "Ajay Kumar Saini | Full Stack Developer & AI Engineer",
+      "description": "Personal portfolio of Ajay Kumar Saini, a Full Stack Developer and Computer Science Engineer from Alwar, Rajasthan.",
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "https://ajaykumarsaini.me/#ajay-kumar-saini",
+        "name": "Ajay Kumar Saini",
+        "alternateName": "Ajay Saini",
+        "url": "https://ajaykumarsaini.me/",
+        "image": "https://ajaykumarsaini.me/profile.jpg",
+        "jobTitle": "Full Stack Developer & AI Engineer",
+        "description": "Full Stack Developer and Computer Science Engineer from Alwar, Rajasthan, focused on React, AI projects, computer vision, web development, and digital marketing & SEO.",
+        "sameAs": [
+          "https://github.com/MR-Ajay1804",
+          "https://www.linkedin.com/in/ajay1804/",
+          "https://www.instagram.com/the.xajju/"
+        ]
+      }
+    }
+    </script>
+
+    <!-- Website Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Ajay Kumar Saini",
+      "alternateName": "Ajay Saini Portfolio",
+      "url": "https://ajaykumarsaini.me/"
+    }
+    </script>
   </head>
 
   <body>
-  <!-- Netlify Contact Form Detection -->
-  <form
-    name="contact"
-    method="POST"
-    data-netlify="true"
-    netlify-honeypot="bot-field"
-    hidden
-  >
-    <input type="hidden" name="form-name" value="contact" />
-    <input type="text" name="bot-field" />
-    <input type="text" name="name" />
-    <input type="email" name="email" />
-    <textarea name="message"></textarea>
-  </form>
+    <!-- Netlify Contact Form Detection -->
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      hidden
+    >
+      <input
+        type="hidden"
+        name="form-name"
+        value="contact"
+      />
 
-  <!-- React Application -->
-  <div id="root"></div>
+      <input
+        type="text"
+        name="bot-field"
+      />
 
-  <script
-    type="module"
-    src="/src/index.jsx"
-  ></script>
-</body>
+      <input
+        type="text"
+        name="name"
+      />
+
+      <input
+        type="email"
+        name="email"
+      />
+
+      <textarea
+        name="message"
+      ></textarea>
+    </form>
+
+    <!-- React Application -->
+    <div id="root"></div>
+
+    <script
+      type="module"
+      src="/src/index.jsx"
+    ></script>
+  </body>
 </html>
