@@ -172,7 +172,7 @@ export default function AskAjayAI({ helpers }) {
     ]);
 
     try {
-      const response = await fetch("/api/ask-ajay", {
+      const response = await fetch("/.netlify/functions/ask-ajay", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
