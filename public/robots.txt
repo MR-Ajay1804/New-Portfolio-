@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ajay-kumar-saini-portfolio.netlify.app/sitemap.xml
+Sitemap: https://ajaykumarsaini.me/sitemap.xml
