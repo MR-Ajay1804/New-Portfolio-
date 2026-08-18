@@ -138,31 +138,22 @@
 
   <body>
     <!-- Netlify Contact Form -->
-    <form
-      name="contact"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      hidden
-    >
-      <input
-        type="hidden"
-        name="form-name"
-        value="contact"
-      />
+ ```html
+<form
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  hidden
+>
+  <input type="hidden" name="form-name" value="contact" />
+  <input name="bot-field" />
+  <input name="name" />
+  <input name="email" />
+  <textarea name="message"></textarea>
+</form>
+```
 
-      <input
-        name="name"
-      />
-
-      <input
-        name="email"
-      />
-
-      <textarea
-        name="message"
-      ></textarea>
-    </form>
 
     <!-- React Application -->
     <div id="root"></div>
