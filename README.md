@@ -4,7 +4,7 @@ Modern animated React portfolio for Ajay Kumar Saini, built with Vite. It includ
 
 ## Live Links
 
-- Portfolio: https://ajay-protfolio.netlify.app/
+- Portfolio: https://ajaykumarsaini.me/
 - Professional Web Resume: `/resume.html`
 - GitHub: https://github.com/MR-Ajay1804
 - Instagram: https://www.instagram.com/the.xajju/
