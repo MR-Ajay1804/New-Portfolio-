@@ -12,6 +12,7 @@
     "@vitejs/plugin-react": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "three": "^0.185.1",
     "vite": "^7.0.0"
   },
   "devDependencies": {

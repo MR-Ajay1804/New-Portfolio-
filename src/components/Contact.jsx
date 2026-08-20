@@ -13,7 +13,7 @@ export default function Contact({ links, helpers }) {
     {
       href: links.portfolio,
       icon: "external",
-      label: "ajay-protfolio.netlify.app",
+      label: "ajaykumarsaini.me",
     },
     {
       href: links.github,
@@ -59,10 +59,10 @@ export default function Contact({ links, helpers }) {
 
   return (
     <section id="contact">
-      Get in touch with Ajay Kumar Saini for Full Stack Development, AI, web
-      development, and digital marketing opportunities.
-
-      <SectionHead title="Contact" />
+      <SectionHead title="Contact">
+        Get in touch with Ajay Kumar Saini for Full Stack Development, AI, web
+        development, and digital marketing opportunities.
+      </SectionHead>
 
       <div className="contact">
         <div className="contact-box" data-reveal>

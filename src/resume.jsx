@@ -6,7 +6,7 @@ import "./styles/resume.css";
 
 const links = {
   portfolio: "/",
-  livePortfolio: "https://ajay-protfolio.netlify.app/",
+  livePortfolio: "https://ajaykumarsaini.me/",
   github: "https://github.com/MR-Ajay1804",
   linkedin: "https://www.linkedin.com/in/ajay1804/",
   instagram: "https://www.instagram.com/the.xajju/",

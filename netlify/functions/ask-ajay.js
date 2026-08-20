@@ -56,7 +56,7 @@ Contact:
 - GitHub: https://github.com/MR-Ajay1804
 - LinkedIn: https://www.linkedin.com/in/ajay1804/
 - Instagram: https://www.instagram.com/the.xajju/
-- Portfolio: https://ajay-protfolio.netlify.app/
+- Portfolio: https://ajaykumarsaini.me/
 
 Education:
 - B.Tech in Computer Science and Engineering,
@@ -75,6 +75,9 @@ Codex, Nano Banana, content creation, video editing, photography.
 Digital Marketing & SEO:
 SEO, keyword research, on-page SEO, technical SEO, content optimization,
 website visibility, meta titles and descriptions, and SEO fundamentals.
+
+Availability & Hiring:
+Ajay is actively open and available for Full Stack Developer roles, Frontend/Backend Engineer positions, AI Engineering opportunities, and software development internships. He is ready for immediate opportunities, remote or on-site.
 
 Experience:
 - Full Stack Web Developer Intern at Upflairs, Jaipur.
@@ -123,7 +126,7 @@ Projects:
 6. 3D Portfolio Website
    Modern animated React/Vite portfolio.
    Demo:
-   https://ajay-protfolio.netlify.app/
+   https://ajaykumarsaini.me/
 `;
 
 export async function handler(event) {

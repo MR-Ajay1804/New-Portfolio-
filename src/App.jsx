@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import profileImage from "./assets/profile.jpg";
 import resumePdf from "./assets/Ajay Kumar Saini.pdf";
+import ThreeScene from "./components/ThreeScene.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 import About from "./components/About.jsx";
@@ -14,10 +15,11 @@ import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import AskAjayAI from "./components/AskAjayAI.jsx";
 import PortfolioPet from "./components/PortfolioPet.jsx";
+import CosmicCursor from "./components/CosmicCursor.jsx";
 
 const links = {
   profile: profileImage,
-  portfolio: "https://ajay-protfolio.netlify.app/",
+  portfolio: "https://ajaykumarsaini.me/",
   github: "https://github.com/MR-Ajay1804",
   linkedin: "https://www.linkedin.com/in/ajay1804/",
   instagram: "https://www.instagram.com/the.xajju/",
@@ -34,14 +36,14 @@ const links = {
     weedDetection: "https://weed-detection-qgd6.onrender.com/",
     taskManager: "https://task-manager-psi-sooty.vercel.app/",
     csvDashboard: "https://csv-dashboard-tau.vercel.app/",
-    portfolio: "https://ajay-protfolio.netlify.app/",
+    portfolio: "https://ajaykumarsaini.me/",
     library: "https://library-management-system-rfeo.onrender.com/"
   },
   resume: resumePdf,
-  pythonCert: "https://ajay-protfolio.netlify.app/certificate-python.pdf",
-  javaCert: "https://ajay-protfolio.netlify.app/certificate-java.pdf",
-  rscit: "https://ajay-protfolio.netlify.app/Rscit.jpg",
-  supremeCert: "http://drive.google.com/file/d/1sh3PkHe7YjCYRpiRqIRrtNBbcPeGZ6IL/view",
+  pythonCert: "/certificate-python.pdf",
+  javaCert: "/certificate-java.pdf",
+  rscit: "/Rscit.jpg",
+  supremeCert: "https://drive.google.com/file/d/1sh3PkHe7YjCYRpiRqIRrtNBbcPeGZ6IL/view",
   upflairsCert: "https://drive.google.com/file/d/1Z088A4nodBJHBzimwMQ1yFcq97UKCV_s/view",
   weedPaper: "https://jscer.org/wp-content/uploads/2026/04/5/Weed%20detection.pdf"
 };
@@ -95,107 +97,96 @@ const helpers = { Icon, IconBox, Tags, ActionLink, SectionHead };
 
 const data = {
   links,
- skills: [
-
-  { 
-    icon: "code", 
-    tone: "mint", 
-    title: "Full Stack Development", 
-    text: "JavaScript, React.js, responsive UI, APIs, Firebase, MySQL, and deployment-ready web applications with clean user flows.", 
-    tags: ["JavaScript", "React.js", "APIs"] 
-  },
-
-{
-  icon: "external",
-  tone: "gold",
-  title: "Digital Marketing & SEO",
-  text: "Working knowledge of SEO and digital marketing, including keyword research, on-page SEO, technical SEO, content optimization, and improving website search visibility.",
-  tags: ["SEO", "Keyword Research", "Technical SEO"]
-},
-
-  { 
-    icon: "sparkle", 
-    tone: "violet", 
-    title: "AI Tools & Prompt Engineering", 
-    text: "Efficient use of ChatGPT, Gemini, Claude AI, Claude Code, Codex, and Nano Banana for coding, debugging, research, content, and faster delivery.", 
-    tags: ["ChatGPT", "Gemini", "Claude"] 
-  },
-
-  { 
-    icon: "hand", 
-    tone: "blue", 
-    title: "AI / ML Projects", 
-    text: "Practical AI project experience with weed detection, sign language detection, Python, OpenCV, image processing, and ML fundamentals.", 
-    tags: ["Python", "OpenCV", "ML"] 
-  },
-
-  { 
-    icon: "database", 
-    tone: "blue", 
-    title: "Backend & Data", 
-    text: "API integration, backend connectivity, Firebase, MySQL, database flow, authentication concepts, and dynamic web features.", 
-    tags: ["Firebase", "MySQL", "Auth"] 
-  },
-
-  { 
-    icon: "external", 
-    tone: "gold", 
-    title: "Deployment Platforms", 
-    text: "Comfortable deploying and maintaining projects across Vercel, Render, Netlify, GitHub, and production-ready web hosting workflows.", 
-    tags: ["Vercel", "Render", "Netlify"] 
-  },
-
-  { 
-    icon: "layers", 
-    tone: "mint", 
-    title: "Computer Science", 
-    text: "C++, DSA, OOP, DBMS, Computer Networks, Microprocessors, programming fundamentals, and structured problem solving.", 
-    tags: ["C++", "DSA", "OOP"] 
-  },
-
-  { 
-    icon: "check", 
-    tone: "coral", 
-    title: "Soft Skills", 
-    text: "Content creation, peer support, resume building help, photography, video editing, and short-form creative storytelling.", 
-    tags: ["20K+ Views", "Editing", "Mentoring"] 
-  }
-
-],
-about: {
-  intro: "I am Ajay Kumar Saini, a Full Stack Developer and Computer Science Engineering student from Alwar, Rajasthan. I build practical React and JavaScript web applications, AI-assisted workflows, and computer vision projects, and I use modern deployment and digital marketing practices to turn ideas into polished, useful digital products.",
-
-  focus: [
-    "Full Stack Development",
-    "React.js",
-    "AI & Machine Learning",
-    "Computer Vision",
-    "Digital Marketing & SEO"
-  ],
-
-  cards: [
-    {
-      icon: "monitor",
-      tone: "mint",
-      title: "Build",
-      text: "I turn ideas into responsive web applications and useful product experiences using JavaScript, React.js, APIs, Firebase, and MySQL."
+  skills: [
+    { 
+      icon: "code", 
+      tone: "mint", 
+      title: "Full Stack Development", 
+      text: "JavaScript (ES6+), React.js, responsive UI/UX, REST APIs, Firebase, MySQL, and deployment-ready web applications with clean user flows.", 
+      tags: ["JavaScript", "React.js", "APIs", "Firebase"] 
     },
-
-    {
-      icon: "sparkle",
-      tone: "violet",
-      title: "Use AI Efficiently",
-      text: "I use ChatGPT, Gemini, Claude, Claude Code, Codex, and Nano Banana for research, debugging, coding, prompt engineering, and faster development workflows."
+    { 
+      icon: "sparkle", 
+      tone: "violet", 
+      title: "AI Tools, Antigravity & Stitch", 
+      text: "Expertise in Google Antigravity, Stitch, OpenAI Codex, Claude Code, ChatGPT, Gemini, and advanced Prompt Engineering for rapid agentic architecture, automated refactoring, and AI-driven full-stack development.", 
+      tags: ["Antigravity", "Prompt Engineering", "Stitch", "Claude Code", "Codex"] 
     },
-
+    { 
+      icon: "hand", 
+      tone: "blue", 
+      title: "AI / ML & Computer Vision", 
+      text: "Practical AI & ML project experience with weed detection, sign language recognition, Python, OpenCV, convolutional image processing, and model training.", 
+      tags: ["Python", "OpenCV", "ML", "Computer Vision"] 
+    },
     {
       icon: "external",
       tone: "gold",
-      title: "Deploy & Grow",
-      text: "I deploy projects using Render, Vercel, and Netlify, and apply digital marketing and SEO fundamentals such as keyword research, on-page optimization, technical SEO, and content optimization."
+      title: "Digital Marketing & SEO",
+      text: "Working knowledge of SEO and digital marketing, including keyword research, on-page SEO, technical SEO, content optimization, and improving website search visibility.",
+      tags: ["SEO", "Keyword Research", "Technical SEO"]
+    },
+    { 
+      icon: "database", 
+      tone: "blue", 
+      title: "Backend & Data Architecture", 
+      text: "API integration, backend connectivity, Firebase, MySQL, database flow, authentication concepts, and dynamic web features.", 
+      tags: ["Node.js", "Firebase", "MySQL", "Auth"] 
+    },
+    { 
+      icon: "external", 
+      tone: "gold", 
+      title: "Deployment & Cloud Platforms", 
+      text: "Comfortable deploying and maintaining projects across Vercel, Render, Netlify, GitHub, and production-ready web hosting workflows.", 
+      tags: ["Vercel", "Render", "Netlify", "GitHub"] 
+    },
+    { 
+      icon: "layers", 
+      tone: "mint", 
+      title: "Computer Science Core", 
+      text: "C++, DSA, OOP, DBMS, Computer Networks, Microprocessors, programming fundamentals, and structured problem solving.", 
+      tags: ["C++", "DSA", "OOP", "DBMS"] 
+    },
+    { 
+      icon: "check", 
+      tone: "coral", 
+      title: "Soft Skills & Content", 
+      text: "Technical storytelling, peer support, resume building help, photography, video editing (VN, CapCut), and short-form creative storytelling (20K+ Views).", 
+      tags: ["20K+ Views", "Editing", "Mentoring"] 
     }
-  ]
-},
+  ],
+  about: {
+    intro: "I am Ajay Kumar Saini, a Full Stack Developer and Computer Science Engineering student from Alwar, Rajasthan. I build practical React and JavaScript web applications, agentic AI workflows with Antigravity, Codex, Stitch & Claude Code, and computer vision projects, and I use modern deployment and digital marketing practices to turn ideas into polished, useful digital products.",
+
+    focus: [
+      "Full Stack Development",
+      "Antigravity & Agentic AI",
+      "Prompt Engineering & Stitch",
+      "Codex & Claude Code",
+      "Computer Vision & ML"
+    ],
+
+    cards: [
+      {
+        icon: "monitor",
+        tone: "mint",
+        title: "Build",
+        text: "I turn ideas into responsive web applications and useful product experiences using JavaScript, React.js, APIs, Firebase, and MySQL."
+      },
+      {
+        icon: "sparkle",
+        tone: "violet",
+        title: "Agentic AI & Prompt Engineering",
+        text: "I leverage Google Antigravity, Stitch, OpenAI Codex, Claude Code, Gemini, and advanced Prompt Engineering for rapid agentic architecture, automated refactoring, and AI-accelerated delivery."
+      },
+      {
+        icon: "external",
+        tone: "gold",
+        title: "Deploy & Grow",
+        text: "I deploy projects using Render, Vercel, and Netlify, and apply digital marketing and SEO fundamentals such as keyword research, on-page optimization, technical SEO, and content optimization."
+      }
+    ]
+  },
   education: [
     { time: "2022 - 2026", icon: "school", tone: "blue", title: "B.Tech in Computer Science and Engineering", text: "Modern Institute of Technology and Research Centre (MITRC), Alwar, Rajasthan. Expected graduation: June 2026." },
     { time: "2022", icon: "book", tone: "mint", title: "12th - Science (PCM)", text: "Adinath Public School, Alwar, Rajasthan." },
@@ -278,6 +269,7 @@ about: {
   {
     title: "CSV Dashboard",
     type: "React Data Visualization Dashboard",
+    visualizer: "data-waveform",
     text: "An interactive CSV data dashboard that converts tabular data into readable insights using charts, filters, summaries, and data exploration features.",
     role: "Designed the data exploration workflow, chart-based visualization experience, and deployed the dashboard for live use.",
     tags: ["JavaScript", "React.js", "Data Visualization", "Charts"],
@@ -298,6 +290,7 @@ about: {
   {
     title: "Library Management System",
     type: "Full Stack Web Application",
+    visualizer: "codex-archive",
     text: "A full-stack library management web application for organizing books and library operations with structured records, data handling, and an admin-style interface.",
     role: "Built the full-stack management workflow and deployed the application on Render.",
     tags: ["Node.js", "JavaScript", "MySQL", "Full Stack", "Render"],
@@ -318,6 +311,7 @@ about: {
   {
     title: "3D Portfolio Website",
     type: "React Personal Portfolio & Personal Brand",
+    visualizer: "hyper-portal",
     text: "A modern React and Vite developer portfolio featuring animated visual design, responsive sections, project showcases, AI assistance, and SEO-focused personal branding.",
     role: "Designed and built the portfolio as a futuristic personal brand experience, including the Ask Ajay AI assistant and SEO setup.",
     tags: ["React.js", "Vite", "Netlify", "SEO", "AI"],
@@ -334,80 +328,6 @@ about: {
     { icon: "users", tone: "mint", title: "Peer Support", text: "Assists peers with programming concepts, project development, and resume building." }
   ]
 };
-
-function Scene() {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    let animationId;
-    let particles = [];
-
-    function sizeCanvas() {
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.floor(window.innerWidth * ratio);
-      canvas.height = Math.floor(window.innerHeight * ratio);
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      particles = Array.from({ length: Math.min(86, Math.floor(window.innerWidth / 16)) }, () => ({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        z: Math.random() * 1 + 0.2,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45
-      }));
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      for (const p of particles) {
-        p.x += p.vx * p.z;
-        p.y += p.vy * p.z;
-        if (p.x < -20) p.x = window.innerWidth + 20;
-        if (p.x > window.innerWidth + 20) p.x = -20;
-        if (p.y < -20) p.y = window.innerHeight + 20;
-        if (p.y > window.innerHeight + 20) p.y = -20;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.6 + p.z, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(190, 238, 255, ${0.18 + p.z * 0.28})`;
-        ctx.fill();
-      }
-      for (let i = 0; i < particles.length; i += 1) {
-        for (let j = i + 1; j < particles.length; j += 1) {
-          const a = particles[i];
-          const b = particles[j];
-          const distance = Math.hypot(a.x - b.x, a.y - b.y);
-          if (distance < 116) {
-            ctx.strokeStyle = `rgba(98, 168, 255, ${0.16 * (1 - distance / 116)})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
-      animationId = requestAnimationFrame(draw);
-    }
-
-    sizeCanvas();
-    draw();
-    window.addEventListener("resize", sizeCanvas);
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener("resize", sizeCanvas);
-    };
-  }, []);
-
-  return (
-    <div className="scene" aria-hidden="true">
-      <canvas id="stars" ref={canvasRef} />
-      <div className="mesh" />
-    </div>
-  );
-}
 
 function usePortfolioEffects() {
   useEffect(() => {
@@ -435,34 +355,9 @@ function usePortfolioEffects() {
       return () => link.removeEventListener("click", handleClick);
     });
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const cards = prefersReducedMotion
-      ? []
-      : document.querySelectorAll(".panel, .project, .timeline-item, .cert, .contact-box, .contact-links a, .about-copy");
-    const cleanups = Array.from(cards).map((card) => {
-      const move = (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        card.style.setProperty("--spot-x", `${(x + 0.5) * 100}%`);
-        card.style.setProperty("--spot-y", `${(y + 0.5) * 100}%`);
-        card.style.transform = `translateY(-8px) rotateX(${y * -7}deg) rotateY(${x * 7}deg) scale(1.025)`;
-      };
-      const leave = () => {
-        card.style.transform = "";
-      };
-      card.addEventListener("mousemove", move);
-      card.addEventListener("mouseleave", leave);
-      return () => {
-        card.removeEventListener("mousemove", move);
-        card.removeEventListener("mouseleave", leave);
-      };
-    });
-
     return () => {
       observer.disconnect();
       smoothHandlers.forEach((cleanup) => cleanup());
-      cleanups.forEach((cleanup) => cleanup());
     };
   }, []);
 }
@@ -472,7 +367,8 @@ export default function App() {
 
   return (
     <>
-      <Scene />
+      <CosmicCursor />
+      <ThreeScene />
       <Navbar helpers={helpers} />
       <main id="home" className="wrap">
         <Hero links={links} helpers={helpers} />
